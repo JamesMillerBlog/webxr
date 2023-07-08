@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/JamesMillerBlog/webxr.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "author": "James Miller",
   "license": "ISC"
 }
