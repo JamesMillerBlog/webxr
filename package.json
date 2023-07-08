@@ -1,12 +1,12 @@
 {
-    "name": "webxr",
-    "version": "0.0.1",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "dev": "gobble dev",
-        "deployBackend": "gobble sls deploy"
-    },
-    "author": "James Miller",
-    "license": "ISC"
+  "name": "@jamesmillerblog/webxr",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gobble dev",
+    "deployBackend": "gobble sls deploy"
+  },
+  "author": "James Miller",
+  "license": "ISC"
 }
