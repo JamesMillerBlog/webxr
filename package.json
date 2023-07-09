@@ -1,32 +1,19 @@
 {
-  "name": "@jamesmillerblog/wrapper.js",
-  "version": "0.4.8",
-  "description": "A Full Stack Javascript Devops Tool",
-  "author": "James Miller <hi@jamesmiller.blog> (https://jamesmiller.blog)",
-  "main": "./bin/index.js",
+  "name": "@jamesmillerblog/webxr",
+  "version": "0.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gobble dev",
+    "deployBackend": "gobble sls deploy"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JamesMillerBlog/wrapper.js"
+    "url": "https://github.com/JamesMillerBlog/webxr.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "license": "ISC",
-  "dependencies": {
-    "arg": "^5.0.1",
-    "aws-sdk": "^2.1118.0",
-    "chalk": "^2.0.0",
-    "dotenv": "^10.0.0",
-    "esm": "^3.2.25",
-    "execa": "^6.1.0",
-    "inquirer": "^8.2.1",
-    "internal-ip": "^6.2.0",
-    "listr": "^0.14.3",
-    "ncp": "^2.0.0",
-    "node-cmd": "^4.0.0"
-  },
-  "bin": {
-    "unwrap": "./src/index.js",
-    "gobble": "./bin/index.js"
-  }
+  "author": "James Miller",
+  "license": "ISC"
 }
