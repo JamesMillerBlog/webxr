@@ -1,5 +1,4 @@
 "use strict";
-// const util = require('util')
 const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const {
@@ -88,12 +87,9 @@ const returnPositionData = async (posData, positions_table_id) => {
       },
       TableName: positions_table_id,
     };
-    dynamoDb.put(putParams).promise();
 
-    // return nothing and post to dynamo
     await dynamoDb.put(putParams).promise();
   }
-  // return all data
   const getParams = {
     TableName: positions_table_id,
   };
