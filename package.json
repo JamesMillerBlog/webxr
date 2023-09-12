@@ -3,8 +3,12 @@
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
+  "workspaces": [
+    "src/client",
+    "src/server"
+  ],
   "scripts": {
-    "dev": "gobble dev",
+    "dev": "npm run start:dev --workspace @webxr/client & npm run start:dev --workspace @webxr/server",
     "deployBackend": "gobble sls deploy"
   },
   "repository": {
