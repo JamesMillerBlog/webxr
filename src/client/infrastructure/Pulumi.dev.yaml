@@ -2,7 +2,7 @@ config:
   aws:region: eu-west-2
   targetDomain: newpilot.app
   pathToWebsiteContents: ./../../client/out
-  includeWWW: true
+  # includeWWW: true
   # aws:accessKey: test
   # aws:endpoints:
   #   - accessanalyzer: http://localhost:4566

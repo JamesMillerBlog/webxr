@@ -5,6 +5,7 @@
   "main": "index.js",
   "workspaces": [
     "src/client",
+    "src/client/infrastructure",
     "src/server"
   ],
   "scripts": {

@@ -5,7 +5,13 @@
     "start:dev": "next dev -p 3001 & npx local-ssl-proxy --source 3000 --target 3001",
     "build": "next build && tsc && next export",
     "lint": "next lint . --ext ts --ext tsx --ext js",
-    "lint-and-fix": "next lint . --ext ts --ext tsx --ext js --fix"
+    "lint-and-fix": "next lint . --ext ts --ext tsx --ext js --fix",
+    "pulumi:stack:select": "cd infrastructure && pulumi stack select",
+    "pulumi:preview": "cd infrastructure && pulumi preview",
+    "pulumi:up": "cd infrastructure && pulumi up -y",
+    "pulumi:down": "cd infrastructure && pulumi down -y",
+    "pulumilocal:up": "cd infrastructure && localstack start & pulumilocal up",
+    "pulumilocal:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.6",
@@ -23,7 +29,12 @@
     "socket.io-react-hook": "^2.4.1",
     "styled-components": "^6.0.5",
     "three": "^0.155.0",
-    "zustand": "^4.3.9"
+    "zustand": "^4.3.9",
+    "@pulumi/aws": "^5.0.0",
+    "@pulumi/awsx": "^1.0.0",
+    "@pulumi/pulumi": "^3.0.0",
+    "@pulumi/synced-folder": "^0.11.1",
+    "mime": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.5",

@@ -24,6 +24,9 @@ dist/
 #serverless framework articfact files
 .serverless
 
+# pulumi
+/bin/
+
 #jest articfact files
 coverage/
 
