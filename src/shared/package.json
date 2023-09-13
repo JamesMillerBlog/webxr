@@ -1,0 +1,19 @@
+{
+    "name": "webxr-shared",
+    "devDependencies": {
+        "@types/node": "^16"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/aws": "^5.0.0",
+        "@pulumi/awsx": "^1.0.0"
+    },
+    "scripts":{
+        "pulumi:stack:select": "cd infrastructure && pulumi stack select",
+        "pulumi:preview": "cd infrastructure && pulumi preview",
+        "pulumi:up": "cd infrastructure && pulumi up -y",
+        "pulumi:down": "cd infrastructure && pulumi down -y",
+        "pulumilocal:up": "cd infrastructure && localstack start & pulumilocal up",
+        "pulumilocal:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
+    }
+}

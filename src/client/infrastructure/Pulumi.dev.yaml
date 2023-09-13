@@ -1,7 +1,6 @@
 config:
   aws:region: eu-west-2
-  targetDomain: newpilot.app
-  pathToWebsiteContents: ./../../client/out
+  targetDomain: pulumi.newpilot.app
   # includeWWW: true
   # aws:accessKey: test
   # aws:endpoints:

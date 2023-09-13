@@ -13,7 +13,13 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "pulumi:stack:select": "cd infrastructure && pulumi stack select",
+    "pulumi:preview": "cd infrastructure && pulumi preview",
+    "pulumi:up": "cd infrastructure && pulumi up -y",
+    "pulumi:down": "cd infrastructure && pulumi down -y",
+    "pulumilocal:up": "cd infrastructure && localstack start & pulumilocal up",
+    "pulumilocal:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -25,7 +31,10 @@
     "aws-sdk": "^2.1445.0",
     "nestjs-dynamoose": "^0.5.5",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "@pulumi/pulumi": "^3.0.0",
+    "@pulumi/aws": "^5.0.0",
+    "@pulumi/awsx": "^1.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
