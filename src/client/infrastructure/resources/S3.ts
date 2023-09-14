@@ -13,7 +13,7 @@ export class S3 {
 
   contentBucket: Bucket;
   parent: Client;
-  webContentsRootPath = "./../out";
+  webContentsRootPath = "./../../client/out";
 
   constructor(bucket: string, parent: Client) {
     this.parent = parent;

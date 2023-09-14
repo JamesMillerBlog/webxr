@@ -1,5 +1,5 @@
 {
-    "name": "webxr-shared",
+    "name": "@webxr/shared",
     "devDependencies": {
         "@types/node": "^16"
     },
@@ -9,10 +9,14 @@
         "@pulumi/awsx": "^1.0.0"
     },
     "scripts":{
-        "pulumi:stack:select": "cd infrastructure && pulumi stack select",
+        "pulumi:login": "cd infrastructure && pulumi login <s3-url>",
+        "pulumi:stack:init": "cd infrastructure && pulumi stack init <stack-name> eg dev",
+        "pulumi:stack:select": "cd infrastructure && pulumi stack select <stack-name>",
         "pulumi:preview": "cd infrastructure && pulumi preview",
         "pulumi:up": "cd infrastructure && pulumi up -y",
         "pulumi:down": "cd infrastructure && pulumi down -y",
+        "pulumi:stack:rm": "cd infrastructure && pulumi stack rm",
+        "pulumi:whoami": "cd infrastructure && pulumi whoami",
         "pulumilocal:up": "cd infrastructure && localstack start & pulumilocal up",
         "pulumilocal:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
     }
