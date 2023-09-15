@@ -1,6 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import { Shared } from "../Shared";
+import { NAME } from './../common'; 
 
 export class SecretsManager {
   secretId: pulumi.Output<string>;
@@ -8,10 +9,10 @@ export class SecretsManager {
   secretVersionId: pulumi.Output<string>;
   secretVersionArn: pulumi.Output<string>;
 
-  constructor(name: string, parent: Shared) {
-    const secret = new aws.secretsmanager.Secret(name, {}, {parent});
-
-    const secretVersion =  new aws.secretsmanager.SecretVersion("example", {
+  constructor(parent: Shared) {
+    const secret = new aws.secretsmanager.Secret(`${NAME}-secrets`, {}, {parent});
+    
+    const secretVersion =  new aws.secretsmanager.SecretVersion(`${NAME}-secrets-version`, {
         secretId: secret.id,
         secretString: "example-string-to-protect",
     }, {parent});

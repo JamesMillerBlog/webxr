@@ -10,7 +10,14 @@
         "pretty": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@shared/*": ["./../../shared/*"]
+          },
+          "rootDirs": [
+            "./../app",
+            "./../../shared"
+          ],
     },
     "files": [
         "index.ts"

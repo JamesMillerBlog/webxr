@@ -7,14 +7,11 @@ export class Shared extends pulumi.ComponentResource {
   public secretVersionArn: pulumi.Output<string>;
   public secretVersionId: pulumi.Output<string>;
 
-  constructor(
-    name: string,
-    config: pulumi.Config,
-    opts?: pulumi.ResourceOptions
-  ) {
-    super("wrapperjs:webxr:Shared", name, {}, opts);
+  constructor(opts?: pulumi.ResourceOptions) {
+    super({}, opts);
+    // super("wrapperjs:webxr:Shared", name, {}, opts);
 
-    const secrets = new SecretsManager('webxr-test-secrets-lol', this)
+    const secrets = new SecretsManager(this)
 
     this.secretId = secrets.secretId;
     this.secretArn =    secrets.secretArn
