@@ -3,15 +3,6 @@ import { Cognito } from "../stores";
 import { HTTP_API_URL } from "./consts";
 import { User, UserMode } from "@shared/types";
 
-export interface UserData {
-  avatar: string;
-  image: string;
-  role: string;
-  uid: string;
-  userMode: string;
-  username: string;
-}
-
 export const getUserData = async (cognito: Cognito): Promise<User> =>
   await axios({
     method: "get",
@@ -72,7 +63,7 @@ export const updateUserData = async (
   );
 };
 
-export const getAllUsersData = async (cognito: Cognito): Promise<UserData[]> =>
+export const getAllUsersData = async (cognito: Cognito): Promise<User[]> =>
   await axios({
     method: "get",
     url: `${HTTP_API_URL}/user/`,
