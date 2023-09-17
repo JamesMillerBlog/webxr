@@ -10,14 +10,14 @@ export const userService = async(): Promise<UserService> => {
     return app.get(UserService);
 }
 
-interface GetParams {
-    query: { uuid: string }
+export interface GetParams {
+    query: { uid: string }
 }
 
 export const getHandler = async (event: GetParams ): Promise<LambdaResponse> => {
     const {findOne, findAll} = await userService();
     
-    const uid = event.query.uuid;
+    const uid = event.query.uid;
     const data = uid ? await findOne({uid}) : await findAll();
     const body = JSON.stringify(data);
   
@@ -31,7 +31,7 @@ export const getHandler = async (event: GetParams ): Promise<LambdaResponse> => 
     };
 };
   
-interface UserData {
+export interface UserData {
     query: { user: UserDto }
 }
 

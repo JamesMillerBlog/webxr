@@ -17,25 +17,25 @@ export const getUser = async (
   return chosenUser;
 };
 
-export const get = async (uuid: string, usersTable: string) => {
-  if (uuid) {
+export const get = async (uid: string, usersTable: string) => {
+  if (uid) {
     const putParams = {
       Item: {
-        uid: uuid,
+        uid,
         role: null,
         avatar: null,
         userMode: 'image',
-        username: uuid,
+        username: uid,
         image: 'jamesmiller.png',
       },
       TableName: usersTable,
     };
 
     const putUserData = () => dynamoDb.put(putParams).promise();
-    const userDetails = await getUser(uuid, usersTable);
+    const userDetails = await getUser(uid, usersTable);
     if (!userDetails) await putUserData();
 
-    return getUser(uuid, usersTable);
+    return getUser(uid, usersTable);
   } else {
     return dynamoDb.scan({ TableName: usersTable }).promise();
   }
