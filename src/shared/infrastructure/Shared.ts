@@ -1,28 +1,31 @@
 import * as pulumi from "@pulumi/pulumi";
 import { SecretsManager } from "./resources";
+import { NAME } from "./common";
+import { Secrets } from './types'
 
 export class Shared extends pulumi.ComponentResource {
-  public secretId: pulumi.Output<string>;
-  public secretArn: pulumi.Output<string>;
-  public secretVersionArn: pulumi.Output<string>;
-  public secretVersionId: pulumi.Output<string>;
+  // public secretId: pulumi.Output<string>;
+  // public secretArn: pulumi.Output<string>;
+  // public secretVersionArn: pulumi.Output<string>;
+  // public secretVersionId: pulumi.Output<string>;
 
-  constructor(opts?: pulumi.ResourceOptions) {
-    super({}, opts);
-    // super("wrapperjs:webxr:Shared", name, {}, opts);
+  constructor(secrets:Secrets, opts?: pulumi.ResourceOptions) {
+    super("Shared", `${NAME}_shared`, {}, opts, undefined);
 
-    const secrets = new SecretsManager(this)
+    new SecretsManager(`${NAME}_server_secrets`, secrets.server, this)
+    new SecretsManager(`${NAME}_client_secrets`, secrets.client, this)
+    // const {secretId, secretArn, secretVersionArn, secretVersionId} = secretsManager;
 
-    this.secretId = secrets.secretId;
-    this.secretArn =    secrets.secretArn
-    this.secretVersionArn = secrets.secretVersionArn
-    this.secretVersionId = secrets.secretVersionId
+    // this.secretId = secretId;
+    // this.secretArn = secretArn
+    // this.secretVersionArn = secretVersionArn
+    // this.secretVersionId = secretVersionId
 
-    this.registerOutputs({
-        secretId: secrets.secretId,
-        secretArn: secrets.secretArn,
-        secretVersionId: secrets.secretVersionId,
-        secretVersionArn: secrets.secretVersionArn,
-    });
+    // this.registerOutputs({
+    //     secretId: this.secretId,
+    //     secretArn: this.secretArn,
+    //     secretVersionId: this.secretVersionId,
+    //     secretVersionArn: this.secretVersionArn,
+    // });
   }
 }

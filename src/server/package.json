@@ -5,7 +5,7 @@
     "build": "nest build",
     "format": "prettier --write \"app/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch & sleep 10 && npx local-ssl-proxy --source 3002 --target 3003",
+    "start:dev": "nest start --watch & sleep 30 && npx local-ssl-proxy --source 3002 --target 3003",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{app,apps,libs,test}/**/*.ts\" --fix",
@@ -18,8 +18,8 @@
     "pulumi:preview": "cd infrastructure && pulumi preview",
     "pulumi:up": "cd infrastructure && pulumi up -y",
     "pulumi:down": "cd infrastructure && pulumi down -y",
-    "pulumilocal:up": "cd infrastructure && localstack start & pulumilocal up",
-    "pulumilocal:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
+    "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
+    "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

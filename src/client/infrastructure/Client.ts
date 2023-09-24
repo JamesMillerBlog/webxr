@@ -1,6 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
-import { NAME, CONFIG, DOMAIN } from "@shared/infrastructure/common";
+import { NAME, CONFIG, DOMAIN } from "./../../shared/infrastructure/common";
 import { S3, ACM, Cloudfront, Route53 } from "./resources";
 
 export class Client extends pulumi.ComponentResource {
@@ -10,7 +10,8 @@ export class Client extends pulumi.ComponentResource {
   public targetDomainEndpoint: string;
 
   constructor(opts?: pulumi.ResourceOptions) {
-    super({}, opts);
+    // type: string, name: string, args?: pulumi.Inputs | undefined, opts?: pulumi.ComponentResourceOptions | undefined, remote?: boolean | undefined
+    super("Client", `${NAME}_client`, {}, opts, undefined);
     // super("wrapperjs:webxr:Client", name, {}, opts);
     const certificateArn = CONFIG.get("certificateArn");
 
@@ -18,19 +19,9 @@ export class Client extends pulumi.ComponentResource {
 
     s3.initiateFileUpload();
 
-    const acm = new ACM(
-      certificateArn,
-      aws.config.profile!,
-      DOMAIN,
-      this
-    );
+    const acm = new ACM(certificateArn, aws.config.profile!, DOMAIN, this);
 
-    const cloudfront = new Cloudfront(
-      acm,
-      s3.contentBucket,
-      DOMAIN,
-      this
-    );
+    const cloudfront = new Cloudfront(acm, s3.contentBucket, DOMAIN, this);
 
     s3.attachBucketPolicy(s3.contentBucket, cloudfront.originAccessIdentity);
 

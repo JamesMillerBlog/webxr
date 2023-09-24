@@ -3,12 +3,7 @@
     "devDependencies": {
         "@types/node": "^16"
     },
-    "dependencies": {
-        "@pulumi/pulumi": "^3.0.0",
-        "@pulumi/aws": "^5.0.0",
-        "@pulumi/awsx": "^1.0.0"
-    },
-    "scripts":{
+    "scripts": {
         "pulumi:login": "cd infrastructure && pulumi login <s3-url>",
         "pulumi:stack:init": "cd infrastructure && pulumi stack init <stack-name> eg dev",
         "pulumi:stack:select": "cd infrastructure && pulumi stack select <stack-name>",
@@ -17,7 +12,7 @@
         "pulumi:down": "cd infrastructure && pulumi down -y",
         "pulumi:stack:rm": "cd infrastructure && pulumi stack rm",
         "pulumi:whoami": "cd infrastructure && pulumi whoami",
-        "pulumilocal:up": "cd infrastructure && localstack start & pulumilocal up",
-        "pulumilocal:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
+        "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
+        "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
     }
 }

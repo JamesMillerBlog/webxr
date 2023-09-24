@@ -1,25 +1,25 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import { Shared } from "../Shared";
-import { NAME } from './../common'; 
+import { ClientSecrets, ServerSecrets } from './../types'
 
 export class SecretsManager {
-  secretId: pulumi.Output<string>;
-  secretArn: pulumi.Output<string>;
-  secretVersionId: pulumi.Output<string>;
-  secretVersionArn: pulumi.Output<string>;
+  // secretId: pulumi.Output<string>;
+  // secretArn: pulumi.Output<string>;
+  // secretVersionId: pulumi.Output<string>;
+  // secretVersionArn: pulumi.Output<string>;
 
-  constructor(parent: Shared) {
-    const secret = new aws.secretsmanager.Secret(`${NAME}-secrets`, {}, {parent});
+  constructor(name: string, secrets: ClientSecrets | ServerSecrets, parent: Shared) {
+    const secret = new aws.secretsmanager.Secret(`${name}3`, {name: `${name}3`}, {parent});
     
-    const secretVersion =  new aws.secretsmanager.SecretVersion(`${NAME}-secrets-version`, {
+    new aws.secretsmanager.SecretVersion(`${name}_secrets_version3`, {
         secretId: secret.id,
-        secretString: "example-string-to-protect",
+        secretString: JSON.stringify(secrets),
     }, {parent});
 
-    this.secretId = secret.id;
-    this.secretArn = secret.arn;
-    this.secretVersionId = secretVersion.id;
-    this.secretVersionArn = secretVersion.arn;
+    // this.secretId = secret.id;
+    // this.secretArn = secret.arn;
+    // this.secretVersionId = secretVersion.id;
+    // this.secretVersionArn = secretVersion.arn;
   }
 }

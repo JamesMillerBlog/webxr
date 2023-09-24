@@ -8,9 +8,22 @@
     "src/shared",
     "src/server"
   ],
+  "dependencies": {
+    "@pulumi/aws": "^5.0.0",
+    "@pulumi/pulumi": "^3.0.0"
+  },
   "scripts": {
     "dev": "npm run start:dev --workspace @webxr/client & npm run start:dev --workspace @webxr/server",
-    "deployBackend": "gobble sls deploy"
+    "pulumi:login": "npm run pulumi:login --workspace @webxr/shared",
+    "pulumi:stack:init": "npm run pulumi:stack:init --workspace @webxr/shared",
+    "pulumi:stack:select": "npm run pulumi:stack:select --workspace @webxr/shared",
+    "pulumi:preview": "npm run pulumi:preview --workspace @webxr/shared",
+    "pulumi:up": "npm run pulumi:up --workspace @webxr/shared",
+    "pulumi:down": "npm run pulumi:down --workspace @webxr/shared",
+    "pulumi:stack:rm": "npm run pulumi:stack:rm --workspace @webxr/shared",
+    "pulumi:whoami": "npm run pulumi:whoami --workspace @webxr/shared",
+    "pulumi:local:up": "npm run pulumi:local:up --workspace @webxr/shared",
+    "pulumi:local:destroy": "npm run pulumi:local:destroy --workspace @webxr/shared"
   },
   "repository": {
     "type": "git",
