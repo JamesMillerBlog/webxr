@@ -37,7 +37,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/types/**/*.tsx"
-  ],
+, "../shared/infrastructure/resources"  ],
   "exclude": [
     "node_modules"
   ]

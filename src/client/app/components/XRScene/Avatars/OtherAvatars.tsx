@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { extractUserData } from "./utils";
 import { AvatarController } from "./AvatarController";
 import { cognitoStore } from "../../../stores";
-import { UserData } from "../../../common";
-import { Movement, UserMode, PositionData, UserDataPacket } from "@shared/types";
+import { Movement, UserMode, PositionData, UserDataPacket, User } from "@shared/types";
 
 export interface UserAvatars {
   username: string;
@@ -16,56 +15,48 @@ export interface UserAvatars {
   rightHand: PositionData;
 }
 
-export const OtherAvatars = ({ socketData, allUsersHttpData, receivedSocketData }: { socketData: UserDataPacket[]; allUsersHttpData: UserData[]; receivedSocketData: UserDataPacket; }) => {
+export const OtherAvatars = ({ avatars, allUsersHttpData, receivedSocketData }: { avatars: UserDataPacket[]; allUsersHttpData: User[]; receivedSocketData: UserDataPacket; }) => {
   const { cognito } = cognitoStore();
-  const [getUserAvatars, setUserAvatars] = useState<UserAvatars[]>();
-
-  const updateAvatarPositions = useCallback((receivedSocketData: UserDataPacket) => {
-    if (!getUserAvatars) return;
-    for (let x = 0; x < getUserAvatars.length; x++) {
-      if (receivedSocketData.uid === getUserAvatars[x].username) {
-        getUserAvatars[x].body = receivedSocketData.data.body;
-        getUserAvatars[x].leftHand = receivedSocketData.data.leftHand;
-        getUserAvatars[x].rightHand = receivedSocketData.data.rightHand;
-        getUserAvatars[x].userMode = receivedSocketData.data.userMode;
-        getUserAvatars[x].movement = receivedSocketData.data.movement;
-      }
-    }
-    setUserAvatars(getUserAvatars);
-  }, [getUserAvatars])
+  const [renderUserAvatars, setUserAvatarsToRender] = useState<UserAvatars[]>();
 
   useEffect(() => {
-    const avatars: UserAvatars[] = socketData.map((message) => {
-      const { userImage, userAvatar } = extractUserData(message.uid, allUsersHttpData);
-
+    const receivedAvatarIsValid = avatars.some(avatar => avatar.uid === receivedSocketData.uid);
+    if (!receivedAvatarIsValid) return;
+    const formattedAvatars: UserAvatars[] = avatars.map(({ uid, data }) => {
+      const { userImage, userAvatar } = extractUserData(uid, allUsersHttpData);
       return {
-        username: message.uid,
+        username: uid,
         image: userImage,
         avatar: userAvatar,
-        userMode: message.data.userMode,
-        movement: message.data.movement,
-        body: message.data.body,
-        leftHand: message.data.leftHand,
-        rightHand: message.data.rightHand,
+        userMode: data.userMode,
+        movement: data.movement,
+        body: data.body,
+        leftHand: data.leftHand,
+        rightHand: data.rightHand,
       };
     });
 
-    const userAvatars = avatars.filter(
-      (avatar) => avatar.username != cognito.username
-    );
 
-    setUserAvatars(userAvatars);
-  }, [cognito.username, allUsersHttpData, socketData]);
+    for (let x = 0; x < formattedAvatars.length; x++) {
+      const avatar = formattedAvatars[x];
+      const avatarExists = receivedSocketData.uid === avatar.username;
+      if (avatarExists) {
+        avatar.body = receivedSocketData.data.body;
+        avatar.leftHand = receivedSocketData.data.leftHand;
+        avatar.rightHand = receivedSocketData.data.rightHand;
+        avatar.userMode = receivedSocketData.data.userMode;
+        avatar.movement = receivedSocketData.data.movement;
+      }
+    }
 
-  useEffect(() => {
-    updateAvatarPositions(receivedSocketData)
-  }, [receivedSocketData, updateAvatarPositions])
+    setUserAvatarsToRender(formattedAvatars);
+  }, [cognito.username, allUsersHttpData, avatars, receivedSocketData]);
 
   return (
     <>
-      {getUserAvatars &&
-        getUserAvatars.length > 0 &&
-        getUserAvatars.map(({
+      {renderUserAvatars &&
+        renderUserAvatars.length > 0 &&
+        renderUserAvatars.map(({
           body, leftHand, rightHand, username, image, avatar, userMode, movement
         }) => {
           return (

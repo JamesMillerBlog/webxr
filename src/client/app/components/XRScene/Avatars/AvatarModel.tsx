@@ -6,7 +6,7 @@ export const AvatarModel = (props) => {
   const { animations, model, body, movement } = props;
   const { device } = deviceStore();
 
-  const bodyPos = (device !== Device.WEB_VR) ? body.position.y - 1.2 : body.position.y;
+  const bodyPos = (device === Device.WEB) ? body.position.y - 1.5 : body.position.y - 1.7;
 
   const { actions, mixer, ref } = useAnimations(animations);
 
@@ -35,7 +35,7 @@ export const AvatarModel = (props) => {
     const avatar = ref.current;
     if (!avatar || props.activeUser) return;
     avatar.position.set(body.position.x, bodyPos, body.position.z)
-    avatar.setRotationFromEuler(body.rotation)
+    avatar.rotation.set(body.rotation.x, body.rotation.y, body.rotation.z)
   })
 
   return (

@@ -3,23 +3,22 @@ import React, { useRef } from "react";
 import { Object3D } from "three";
 
 export const VRAvatarModel = (props) => {
-  const { AvatarRoot, LeftHand, RightHand, vr } = props.model;
+  const { AvatarRoot, LeftHand, RightHand } = props.model;
   const group = useRef();
 
   useFrame(() => {
     const avatar: Object3D = group.current;
     if (!avatar || props.activeUser) return;
 
+    const yRotation = props.body.rotation.y - 135;
     avatar.position.set(props.body.position.x, props.body.position.y, props.body.position.z)
-    avatar.setRotationFromEuler(props.body.rotation)
+    avatar.rotation.set(props.body.rotation.x, yRotation, props.body.rotation.z)
 
-    if (!vr) {
-      LeftHand.scale.set(0)
-      RightHand.scale.set(0)
-    } else {
-      if (props.leftHand && LeftHand) setHandPosition(LeftHand, props.leftHand);
-      if (props.rightHand && RightHand) setHandPosition(RightHand, props.rightHand);
-    }
+    if (props.leftHand && LeftHand && props.leftHand.position.x !== 0) setHandPosition(LeftHand, props.leftHand);
+    else LeftHand.scale.set(0);
+
+    if (props.rightHand && RightHand && props.rightHand.position.x !== 0) setHandPosition(RightHand, props.rightHand);
+    else RightHand.scale.set(0)
   })
 
   return (

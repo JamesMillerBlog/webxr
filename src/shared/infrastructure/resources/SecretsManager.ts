@@ -10,11 +10,18 @@ export class SecretsManager {
   // secretVersionArn: pulumi.Output<string>;
 
   constructor(name: string, secrets: ClientSecrets | ServerSecrets, parent: Shared) {
-    const secret = new aws.secretsmanager.Secret(`${name}3`, {name: `${name}3`}, {parent});
+    const secret = new aws.secretsmanager.Secret(`${name}36`, {name: `${name}36`}, {parent});
     
-    new aws.secretsmanager.SecretVersion(`${name}_secrets_version3`, {
+    /* 
+      1. Replace secrets with pulumi get config and implement pulumi micro stacks
+      2. GET GOBBLE WORKING (./aws-mfa.sh)
+      3. GITHUB CI/CD
+    */
+
+    // (infrastucture secrets, client secrets, server secrets)
+    new aws.secretsmanager.SecretVersion(`${name}_secrets_version`, {
         secretId: secret.id,
-        secretString: JSON.stringify(secrets),
+        secretString: pulumi.jsonStringify(secrets),
     }, {parent});
 
     // this.secretId = secret.id;

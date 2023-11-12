@@ -1,8 +1,8 @@
-import { UserData } from "../../../common";
+import { User } from "@shared/types";
 
 export const extractUserData = (
   selectedUser: string,
-  data: UserData[]
+  data: User[]
 ): {
   userImage: string;
   userAvatar: string;
@@ -16,6 +16,6 @@ export const extractUserData = (
   };
 };
 
-export const findCurrentUser = (user: UserData, currentUser: string) => {
+export const findCurrentUser = (user: User, currentUser: string) => {
   return user.uid === currentUser;
 };

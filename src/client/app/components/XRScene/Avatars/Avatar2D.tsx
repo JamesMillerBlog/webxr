@@ -11,7 +11,7 @@ export const Avatar2D = (props) => {
     const avatar: Object3D = avatarMesh.current;
     if (!avatar || props.activeUser) return;
     avatar.position.set(props.body.position.x, props.body.position.y, props.body.position.z)
-    avatar.setRotationFromEuler(props.body.rotation)
+    avatar.rotation.set(props.body.rotation.x, props.body.rotation.y, props.body.rotation.z)
   })
 
   return (

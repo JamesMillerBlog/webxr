@@ -1,6 +1,7 @@
+import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
-import { SecretsManager } from "./resources";
-import { NAME } from "./common";
+import { ACM, SecretsManager } from "./resources";
+import { CONFIG, NAME } from "./common";
 import { Secrets } from './types'
 
 export class Shared extends pulumi.ComponentResource {
@@ -9,13 +10,9 @@ export class Shared extends pulumi.ComponentResource {
   // public secretVersionArn: pulumi.Output<string>;
   // public secretVersionId: pulumi.Output<string>;
 
-  constructor(secrets:Secrets, opts?: pulumi.ResourceOptions) {
+  constructor(opts?: pulumi.ResourceOptions) {
     super("Shared", `${NAME}_shared`, {}, opts, undefined);
-
-    new SecretsManager(`${NAME}_server_secrets`, secrets.server, this)
-    new SecretsManager(`${NAME}_client_secrets`, secrets.client, this)
     // const {secretId, secretArn, secretVersionArn, secretVersionId} = secretsManager;
-
     // this.secretId = secretId;
     // this.secretArn = secretArn
     // this.secretVersionArn = secretVersionArn
@@ -27,5 +24,16 @@ export class Shared extends pulumi.ComponentResource {
     //     secretVersionId: this.secretVersionId,
     //     secretVersionArn: this.secretVersionArn,
     // });
+  }
+
+  secretsManager(secrets:Secrets) {
+    return {
+      client:  new SecretsManager(`${NAME}_client_secrets`, secrets.client, this),
+      server:  new SecretsManager(`${NAME}_server_secrets`, secrets.server, this),
+    }
+  }
+
+  acm(isEdge: boolean, domain: string) {
+    return new ACM(NAME, aws.config.profile!, domain, isEdge, this);
   }
 }

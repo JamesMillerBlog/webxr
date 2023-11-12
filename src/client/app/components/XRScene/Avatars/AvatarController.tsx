@@ -8,11 +8,9 @@ const defaultPosition = new Vector3(0, 0, 0);
 const defaultRotation = new Euler();
 
 export const AvatarController = (props) => {
-  const rotation: Euler = new Euler(props.body.rotation._x, props.body.rotation._y, props.body.rotation._z, 'XYZ')
-
   const body = {
-    position: props.body.position ? props.body.position : defaultPosition,
-    rotation: props.body.rotation ? rotation : defaultRotation,
+    position: props.body && props.body.position ? props.body.position : defaultPosition,
+    rotation: props.body && props.body.rotation ? props.body.rotation : defaultRotation,
   };
 
   if (props.userMode === UserMode.IMAGE || props.vr && props.activeUser) {

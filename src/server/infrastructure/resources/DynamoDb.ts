@@ -40,6 +40,6 @@ export class DynamoDb {
       { parent },
     );
 
-    this.id = this.table.id.apply((id) => `${id}`);
+    this.id = this.table.id;
   }
 }

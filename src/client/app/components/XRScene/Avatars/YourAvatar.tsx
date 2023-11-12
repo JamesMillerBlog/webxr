@@ -79,16 +79,15 @@ export const YourAvatar = (props) => {
       }
     };
     if (device !== Device.WEB) {
-
       body.position = {
         x: camera.position.x,
-        y: camera.position.y - 0.5,
+        y: camera.position.y - 0.3,
         z: camera.position.z
       }
 
       body.rotation = {
         x: camera.rotation.x,
-        y: -(camera.rotation.y - 135),
+        y: camera.rotation.y,
         z: -camera.rotation.z
       }
 
@@ -119,6 +118,7 @@ export const YourAvatar = (props) => {
           z: -rightController.rotation.z
         }
       }
+      setPositions(data)
     } else {
       let moveSpeed = 0;
       camera.position.setFromMatrixPosition(userCamera.current.matrixWorld);
@@ -144,13 +144,12 @@ export const YourAvatar = (props) => {
       userCamera.current.position.lerp(temp.current.position, 0.02);
       camera.lookAt(userAvatar.current.position);
       camera.updateProjectionMatrix();
-      body.position = userAvatar.current.position;
-      body.rotation = userAvatar.current.rotation;
-      data.body = body;
-    }
-    if (forward || left || right || backward) setPositions(data)
-  });
+      data.body.position = userAvatar.current.position;
+      data.body.rotation.y = userAvatar.current.rotation.y;
 
+      if (forward || left || right || backward) setPositions(data)
+    }
+  });
 
   return (
     <>
@@ -161,7 +160,6 @@ export const YourAvatar = (props) => {
           <group ref={userCamera} />
           <group ref={temp} />
 
-          {/* <group ref={userAvatar} rotation={[0, yRotation, 0]}> */}
           <group ref={userAvatar}>
             <AvatarController
               key={username}
@@ -175,16 +173,6 @@ export const YourAvatar = (props) => {
             <group ref={follow} position={[0, 1, -3]} />
           </group>
         </>
-      )}
-      {device !== Device.WEB && userMode === "avatar" && (
-        <AvatarController
-          key={username}
-          activeUser={true}
-          userMode={userMode}
-          leftHand={leftController}
-          rightHand={rightController}
-          avatar={avatar}
-        />
       )}
     </>
   );

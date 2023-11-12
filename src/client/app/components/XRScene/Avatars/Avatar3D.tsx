@@ -29,7 +29,7 @@ export const Avatar3D = (props) => {
         setGltf(loadedGltf)
     }
 
-    if (!animations) {
+    if (!animations && !props.vr && !vr) {
         const loadedAnimations = loadAnimations(["idle", "run", "jump"]);
         setAnimations(loadedAnimations)
     }

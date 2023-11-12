@@ -8,11 +8,10 @@
         "sourceMap": true,
         "experimentalDecorators": true,
         "pretty": true,
+        "allowJs": true,
+        "checkJs": false,
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "Server.ts"
-    ]
+    }
 }

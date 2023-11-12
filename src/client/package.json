@@ -1,12 +1,12 @@
 {
   "name": "@webxr/client",
-  "private": true,
+  "private": "true",
   "_moduleAliases": {
     "@shared": "./../shared"
   },
   "scripts": {
     "start:dev": "next dev -p 3001 & npx local-ssl-proxy --source 3000 --target 3001",
-    "build": "next build && tsc && next export",
+    "build": "next build && tsc",
     "lint": "next lint . --ext ts --ext tsx --ext js",
     "lint-and-fix": "next lint . --ext ts --ext tsx --ext js --fix"
   },
@@ -28,8 +28,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use-websocket": "^4.3.1",
-    "socket.io-client": "^4.7.2",
-    "socket.io-react-hook": "^2.4.1",
     "styled-components": "^6.0.5",
     "three": "^0.155.0",
     "zustand": "^4.3.9"

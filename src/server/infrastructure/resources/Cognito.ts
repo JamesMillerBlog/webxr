@@ -5,7 +5,7 @@ import * as pulumi from '@pulumi/pulumi';
 export class Cognito {
   userPoolId: pulumi.Output<string>;
   userPoolClientId: pulumi.Output<string>;
-  //   userPoolClientArn: pulumi.Output<string>;
+  userPoolArn: pulumi.Output<string>;
   identityPoolId: pulumi.Output<string>;
 
   constructor(name: string, parent: Server, initialUserEmail?: string) {
@@ -41,7 +41,7 @@ export class Cognito {
       `${name}_userpool_client`,
       {
         name: `${name}_userpool_client`,
-        generateSecret: true,
+        generateSecret: false,
         userPoolId: pool.id,
       },
       { parent },
@@ -131,11 +131,9 @@ export class Cognito {
       { parent },
     ),
       { parent };
-    this.userPoolId = pool.id.apply((id) => `${id}`);
-    this.userPoolClientId = client.id.apply((id) => `${id}`);
-    // this.userPoolClientArn = pool.arn.apply(
-    //   (arn) => `${arn}/client/${client.id}`,
-    // );
-    this.identityPoolId = identityPool.id.apply((id) => `${id}`);
+    this.userPoolId = pool.id;
+    this.userPoolClientId = client.id;
+    this.userPoolArn = pool.arn;
+    this.identityPoolId = identityPool.id;
   }
 }

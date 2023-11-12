@@ -66,7 +66,7 @@ export const updateUserData = async (
 export const getAllUsersData = async (cognito: Cognito): Promise<User[]> =>
   await axios({
     method: "get",
-    url: `${HTTP_API_URL}/user/`,
+    url: `${HTTP_API_URL}/user`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${cognito.jwt}`,

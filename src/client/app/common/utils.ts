@@ -1,7 +1,7 @@
 "use client";
 
 import { Device } from "../stores";
-import { DOMAIN_NAME, IS_LIVE } from "./consts";
+import { DOMAIN_NAME, IS_LOCAL } from "./consts";
 
 export const checkDevice = async () => {
   if (typeof navigator === "undefined") return Device.WEB;
@@ -14,6 +14,6 @@ export const checkDevice = async () => {
 };
 
 export const imageUrl = (asset: string): string => {
-  if (IS_LIVE) return `https://${DOMAIN_NAME}${asset}`;
-  return asset;
+  if (IS_LOCAL) return asset;
+  return `https://${DOMAIN_NAME}${asset}`;
 };

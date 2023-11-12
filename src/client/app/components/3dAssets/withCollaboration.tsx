@@ -4,14 +4,19 @@ import { deviceStore, socketStore, cognitoStore, selectedObjectStore, Device } f
 import { Matrix4 } from 'three';
 import { ModelDataPacket, ModelPositionData, PositionsType } from '@shared/types';
 
+export enum PositionSharing {
+  INITIATING,
+  STREAMIMG
+}
+
 export const withCollaboration = (BaseComponent) => {
   const WrappedComponent = (props) => {
     const { device } = deviceStore();
     const { selectedObject } = selectedObjectStore();
-    const { sendJson, lastJsonMessage } = socketStore();
+    const { receivedSocketData, websocket } = socketStore();
     const { cognito } = cognitoStore();
     const { scene } = useThree();
-    const [socketMode, setSocketMode] = useState('initialLoad');
+    const [positionSharing, setPositionSharing] = useState(PositionSharing.INITIATING);
 
     const submitPositionsToCloud = useCallback(() => {
       const object = scene.getObjectByName(selectedObject.objectname);
@@ -23,36 +28,38 @@ export const withCollaboration = (BaseComponent) => {
           matrixWorld: object.matrixWorld
         }
       };
-      sendJson({
-        action: 'positions',
-        data: JSON.stringify(data)
-      });
-    }, [cognito.username, scene, selectedObject, sendJson])
 
-    const updateModelFromWebSockets = useCallback(() => {
-      let data: ModelPositionData;
-      if (Array.isArray(lastJsonMessage)) {
-        for (let x = 0; x < lastJsonMessage.length; x++) {
-          const socketData = lastJsonMessage[x] as unknown as ModelDataPacket;
-          if (socketData.uid == props.name && socketData.data.matrixWorld) {
-            data = socketData.data;
-          }
-        }
+      try {
+        websocket.send(
+          JSON.stringify({
+            event: 'positions',
+            data,
+          })
+        );
+      } catch (e) {
+        console.warn(e)
       }
 
+    }, [cognito.username, scene, selectedObject, websocket])
+
+    const updateModelFromWebSockets = useCallback(() => {
+      const socketData = receivedSocketData as ModelDataPacket;
+      const validModelPositionData = socketData.uid === props.name && socketData.data.matrixWorld;
+      const data: ModelPositionData | undefined = (validModelPositionData) ? socketData.data : undefined;
+
       if (data) {
-        if (socketMode == 'stream' && data.submittedBy != cognito.username || socketMode == 'initialLoad') {
+        if (positionSharing === PositionSharing.STREAMIMG && data.submittedBy != cognito.username || positionSharing === PositionSharing.INITIATING) {
           const tempMatrix = new Matrix4();
           const matrixWorld = data.matrixWorld as Matrix4;
           tempMatrix.copy(matrixWorld);
           const group = scene.getObjectByName(props.name);
           tempMatrix.decompose(group.position, group.quaternion, group.scale)
-          if (socketMode == 'initialLoad') {
-            setSocketMode('stream');
+          if (positionSharing === PositionSharing.INITIATING) {
+            setPositionSharing(PositionSharing.STREAMIMG);
           }
         }
       }
-    }, [cognito.username, lastJsonMessage, props.name, scene, socketMode])
+    }, [cognito.username, props.name, receivedSocketData, scene, positionSharing])
 
     useEffect(() => {
       if (device && device !== Device.WEB && selectedObject.objectname) {
@@ -62,8 +69,8 @@ export const withCollaboration = (BaseComponent) => {
 
 
     useEffect(() => {
-      if (device != undefined && lastJsonMessage) updateModelFromWebSockets();
-    }, [device, lastJsonMessage, updateModelFromWebSockets])
+      if (device != undefined && receivedSocketData) updateModelFromWebSockets();
+    }, [device, receivedSocketData, updateModelFromWebSockets])
 
     return (
       <BaseComponent

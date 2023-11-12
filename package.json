@@ -1,5 +1,6 @@
 {
   "name": "@jamesmillerblog/webxr",
+  "private": "true",
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
@@ -10,10 +11,13 @@
   ],
   "dependencies": {
     "@pulumi/aws": "^5.0.0",
-    "@pulumi/pulumi": "^3.0.0"
+    "@pulumi/pulumi": "^3.0.0",
+    "bufferutil": "^4.0.7",
+    "utf-8-validate": "^5.0.10"
   },
   "scripts": {
-    "dev": "npm run start:dev --workspace @webxr/client & npm run start:dev --workspace @webxr/server",
+    "dev": "npm run start:dev --workspace=@webxr/client & npm run start:dev --workspace=@webxr/server",
+    "deploy": "npm run build --workspace=@webxr/client && npm run build:all --workspace=@webxr/server && sleep 5 && npm run pulumi:up",
     "pulumi:login": "npm run pulumi:login --workspace @webxr/shared",
     "pulumi:stack:init": "npm run pulumi:stack:init --workspace @webxr/shared",
     "pulumi:stack:select": "npm run pulumi:stack:select --workspace @webxr/shared",

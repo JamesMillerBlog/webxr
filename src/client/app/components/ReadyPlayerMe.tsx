@@ -25,37 +25,41 @@ export default function RpmPopUp() {
     });
 
     function subscribe(event) {
-        const json = parse(event);
-        if (json?.source !== "readyplayerme") {
-            return;
-        }
-        // Subscribe to all events sent from Ready Player Me
-        // once frame is ready
-        if (json.eventName === "v1.frame.ready") {
-            const iFrame = iFrameRef.current;
-            if (iFrame && iFrame.contentWindow) {
-                iFrame.contentWindow.postMessage(
-                    JSON.stringify({
-                        target: "readyplayerme",
-                        type: "subscribe",
-                        eventName: "v1.**",
-                    }),
-                    "*"
-                );
+        try {
+            const json = parse(event);
+            if (json?.source !== "readyplayerme") {
+                return;
             }
-        }
-        // Get avatar GLB URL
-        if (json.eventName === "v1.avatar.exported") {
-            setAvatar(
-                `${json.data.url}?quality=medium&useDracoMeshCompression=true`
-            );
-            setUserMode(UserMode.AVATAR);
-            setShowIFrame(false);
-        }
-        // Get user id
-        if (json.eventName === "v1.user.set") {
-            console.log(`User with id ${json.data.id} set:
-      ${JSON.stringify(json)}`);
+            // Subscribe to all events sent from Ready Player Me
+            // once frame is ready
+            if (json.eventName === "v1.frame.ready") {
+                const iFrame = iFrameRef.current;
+                if (iFrame && iFrame.contentWindow) {
+                    iFrame.contentWindow.postMessage(
+                        JSON.stringify({
+                            target: "readyplayerme",
+                            type: "subscribe",
+                            eventName: "v1.**",
+                        }),
+                        "*"
+                    );
+                }
+            }
+            // Get avatar GLB URL
+            if (json.eventName === "v1.avatar.exported") {
+                setAvatar(
+                    `${json.data.url}?quality=medium&useDracoMeshCompression=true`
+                );
+                setUserMode(UserMode.AVATAR);
+                setShowIFrame(false);
+            }
+            // Get user id
+            if (json.eventName === "v1.user.set") {
+                console.log(`User with id ${json.data.id} set:
+          ${JSON.stringify(json)}`);
+            }
+        } catch (e) {
+            console.warn(e)
         }
     }
 

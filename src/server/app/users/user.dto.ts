@@ -1,7 +1,10 @@
 import { UserMode } from '@shared/types';
 
-export class UserDto {
+export class UserKeyDto {
   uid: string;
+}
+
+export class UserDto extends UserKeyDto {
   avatar: string;
   userMode: UserMode;
   role: string;
@@ -9,7 +12,6 @@ export class UserDto {
 }
 
 export class UpdateUserDto {
-  uid: string;
   avatar?: string;
   userMode?: UserMode;
   role?: string;

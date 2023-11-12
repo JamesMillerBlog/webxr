@@ -63,31 +63,32 @@ export class S3 {
     );
   }
 
-  initiateFileUpload() {
+  initiateFileUpload(deploymentVersion: string) {
     // Sync the contents of the source directory with the S3 bucket, which will in-turn show up on the CDN.
     const webContentsRootPath = path.join(
       process.cwd(),
       this.webContentsRootPath
     );
     // console.log("Syncing contents from local disk at", webContentsRootPath);
-    this.crawlDirectory(webContentsRootPath);
+    this.crawlDirectory(webContentsRootPath, deploymentVersion);
   }
 
-  crawlDirectory(dir: string) {
+  crawlDirectory(dir: string, deploymentVersion: string) {
     const files = fs.readdirSync(dir);
     for (const file of files) {
       const filePath = `${dir}/${file}`;
       const stat = fs.statSync(filePath);
-      if (stat.isDirectory()) this.crawlDirectory(filePath);
-      if (stat.isFile()) this.uploadFile(filePath);
+      if (stat.isDirectory()) this.crawlDirectory(filePath, deploymentVersion);
+      if (stat.isFile()) this.uploadFile(filePath, deploymentVersion);
     }
   }
 
-  uploadFile(filePath: string) {
+  uploadFile(filePath: string, version: string) {
     const key = filePath.split("out/")[1];
     new aws.s3.BucketObject(
       filePath,
       {
+        tags: { version },
         key,
         bucket: this.contentBucket,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

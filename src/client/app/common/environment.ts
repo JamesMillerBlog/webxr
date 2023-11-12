@@ -17,7 +17,7 @@ export const checkEnvironmentVariables = () => {
     },
     { REGION: process.env.NEXT_PUBLIC_REGION },
     { READY_PLAYER_ME: process.env.NEXT_PUBLIC_READY_PLAYER_ME },
-    { IS_LIVE: process.env.NEXT_PUBLIC_IS_LIVE },
+    { IS_LOCAL: process.env.NEXT_PUBLIC_IS_LOCAL },
   ];
 
   const missingVars: string[] = [];
@@ -48,6 +48,6 @@ export const checkEnvironmentVariables = () => {
     ),
     REGION: String(process.env.NEXT_PUBLIC_REGION),
     READY_PLAYER_ME: String(process.env.NEXT_PUBLIC_READY_PLAYER_ME),
-    IS_LIVE: process.env.NEXT_PUBLIC_IS_LIVE === "true" ? true : false,
+    IS_LOCAL: process.env.NEXT_PUBLIC_IS_LOCAL === "true" ? true : false,
   };
 };

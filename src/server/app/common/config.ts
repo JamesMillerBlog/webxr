@@ -1,7 +1,7 @@
 import { ConfigObject } from '@nestjs/config';
 
 export default (): ConfigObject => {
-  const isLive = process.env.IS_LIVE === 'true' ? true : false;
+  const isLocal = process.env.IS_LOCAL === 'true' ? true : false;
   return {
     serviceName: String(process.env.SERVICE_NAME),
     cognito: {
@@ -38,16 +38,16 @@ export default (): ConfigObject => {
     connectionsTableId: String(process.env.CONNECTIONS_TABLE_ID),
     positionsTableId: String(process.env.POSITIONS_TABLE_ID),
     userTableId: String(process.env.USER_TABLE_ID),
-    isLive,
-    httpApiUrl: isLive
-      ? `https://${String(process.env.DOMAIN_NAME)}`
-      : `https://${String(process.env.API_LOCAL_IP_ADDRESS)}:${String(
+    isLocal,
+    httpApiUrl: isLocal
+      ? `https://${String(process.env.API_LOCAL_IP_ADDRESS)}:${String(
           process.env.LOCAL_API_REST_PORT,
-        )}/${String(process.env.STAGE)}`,
-    wsApiUrl: isLive
-      ? `wss://ws.${String(process.env.DOMAIN_NAME)}`
-      : `wss://${String(process.env.API_LOCAL_IP_ADDRESS)}:${String(
+        )}/${String(process.env.STAGE)}`
+      : `https://${String(process.env.DOMAIN_NAME)}`,
+    wsApiUrl: isLocal
+      ? `wss://${String(process.env.API_LOCAL_IP_ADDRESS)}:${String(
           process.env.LOCAL_API_WS_PORT,
-        )}/${String(process.env.STAGE)}`,
+        )}/${String(process.env.STAGE)}`
+      : `wss://ws.${String(process.env.DOMAIN_NAME)}`,
   };
 };
