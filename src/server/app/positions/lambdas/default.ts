@@ -8,14 +8,10 @@ const { CONNECTIONS_TABLE_ID, DOMAIN_NAME } = process.env;
 export const handler = async (event: APIGatewayProxyEvent) => {
   const socketUrl = `https://ws.${DOMAIN_NAME}`;
 
-  const endpoint = `https://${event.requestContext.domainName}/${event.requestContext.stage}`;
-
   const apiGatewayManagementApi = new AWS.ApiGatewayManagementApi({
     apiVersion: '2018-11-29',
     endpoint: socketUrl,
   });
-
-  console.log(endpoint);
 
   const connectionId = event.requestContext.connectionId;
 

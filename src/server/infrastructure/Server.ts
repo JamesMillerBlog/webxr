@@ -1,90 +1,63 @@
 import * as pulumi from '@pulumi/pulumi';
+import { NAME, PROJECT_STACK } from '../../shared/infrastructure/common';
 import {
-  DOMAIN,
-  NAME,
-  PROJECT_STACK,
-} from '../../shared/infrastructure/common';
-import {
-  DynamoDb,
   RestApiGateway,
   WebsocketApiGateway,
-  Cognito,
   Route53,
   RestLambda,
   WebsocketLambda,
+  Endpoint,
+  Route,
 } from './resources';
-import { ACM } from '../../shared/infrastructure/resources';
 
 export class Server extends pulumi.ComponentResource {
-  public usersTableId: pulumi.Output<string>;
-  public socketConnectionsTableId: pulumi.Output<string>;
-  public cognitoIdentityPoolId: pulumi.Output<string>;
-  public cognitoUserPoolClientId: pulumi.Output<string>;
-  public cognitoUserPoolId: pulumi.Output<string>;
-
-  constructor(
-    edgeCert: ACM,
-    regionalCert: ACM,
-    deploymentVersion: string,
-    opts?: pulumi.ResourceOptions,
-  ) {
+  constructor(opts?: pulumi.ResourceOptions) {
     super('Server', `${NAME}_server`, {}, opts, undefined);
+  }
 
-    const cognito = new Cognito(
-      `${PROJECT_STACK}_cognito`,
-      this,
-      'hi@jamesmiller.blog',
-    );
-
-    const { endpoints } = new RestLambda(this, PROJECT_STACK);
-    const { routes } = new WebsocketLambda(this, `${PROJECT_STACK}_websockets`);
-
-    const restApiGateway = new RestApiGateway(
+  restApiGateway(
+    endpoints: Endpoint[],
+    edgeCertificationArn: string,
+    cognitoUserPoolArn: string,
+    deploymentVersion: string,
+  ) {
+    return new RestApiGateway(
       this,
       `${PROJECT_STACK}_rest_api`,
-      edgeCert,
       endpoints,
-      cognito.userPoolArn,
+      edgeCertificationArn,
+      cognitoUserPoolArn,
       deploymentVersion,
     );
+  }
 
-    const websocketApiGateway = new WebsocketApiGateway(
+  websocketApiGateway(
+    routes: Route[],
+    regionalCertificateArn: string,
+    deploymentVersion: string,
+  ) {
+    return new WebsocketApiGateway(
       this,
       `${PROJECT_STACK}_websockets_api`,
-      regionalCert,
       routes,
+      regionalCertificateArn,
       deploymentVersion,
     );
+  }
 
-    new Route53(DOMAIN, restApiGateway, websocketApiGateway, this);
+  restLambda() {
+    return new RestLambda(this, PROJECT_STACK);
+  }
 
-    const usersTable = new DynamoDb(
-      `${PROJECT_STACK}_users_table`,
-      this,
-      'uid',
-      'S',
-    );
-    const socketConnectionsTable = new DynamoDb(
-      `${PROJECT_STACK}_socket_connections_table`,
-      this,
-      'connectionId',
-      'S',
-    );
+  websocketLambda() {
+    return new WebsocketLambda(this, `${PROJECT_STACK}_websockets`);
+  }
 
-    this.usersTableId = usersTable.id;
-    this.socketConnectionsTableId = socketConnectionsTable.id;
-    this.cognitoIdentityPoolId = cognito.identityPoolId;
-    // this.cognitoUserPoolClientArn = cognito.userPoolClientArn;
-    this.cognitoUserPoolClientId = cognito.userPoolClientId;
-    this.cognitoUserPoolId = cognito.userPoolId;
-
-    this.registerOutputs({
-      usersTableId: this.usersTableId,
-      socketConnectionsTableId: this.socketConnectionsTableId,
-      cognitoIdentityPoolId: this.cognitoIdentityPoolId,
-      // cognitoUserPoolClientArn: this.cognitoUserPoolClientArn,
-      cognitoUserPoolClientId: this.cognitoUserPoolClientId,
-      cognitoUserPoolId: this.cognitoUserPoolId,
-    });
+  route53(
+    domain: string,
+    restApiGateway: RestApiGateway,
+    websocketApiGateway: WebsocketApiGateway,
+  ) {
+    return new Route53(domain, restApiGateway, websocketApiGateway, this);
   }
 }

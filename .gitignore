@@ -9,9 +9,7 @@ dist/
 
 #environment files
 .env
-terraform.tfvars.json
-serverless.env.json
-next.config.js
+.env*.local
 
 #terraform articfact files
 .terraform

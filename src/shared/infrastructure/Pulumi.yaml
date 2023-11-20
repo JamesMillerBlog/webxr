@@ -1,5 +1,5 @@
-name: webxr
+name: webxr-shared
 runtime: nodejs
-description: A minimal AWS TypeScript Pulumi program
+description: Cloud infrastructure shared across the stack
   # backend:
   #   url: <s3-url>

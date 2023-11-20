@@ -6,10 +6,9 @@
     "build:node_modules": "rm -rf build && mkdir build && npm install --prefix ./build @nestjs/core @nestjs/common @nestjs/config @nestjs/platform-express @nestjs/platform-ws @nestjs/websockets aws-sdk nestjs-dynamoose reflect-metadata rxjs axios node-jose",
     "build:all": "npm run build:nest & npm run build:node_modules",
     "format": "prettier --write \"app/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch & sleep 30 && npx local-ssl-proxy --source 3002 --target 3003",
+    "start:dev": "NODE_ENV=development nest start --watch & sleep 30 && npx local-ssl-proxy --source 3002 --target 3003",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/server/app/main.js",
+    "start:prod": "NODE_ENV=production node dist/server/app/main.js",
     "lint": "eslint \"{app,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -21,7 +20,8 @@
     "pulumi:up": "cd infrastructure && pulumi up -y",
     "pulumi:down": "cd infrastructure && pulumi down -y",
     "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
-    "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
+    "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop",
+    "deploy": "npm run build:all && sleep 5 && npm run pulumi:up"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

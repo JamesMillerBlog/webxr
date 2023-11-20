@@ -1,10 +1,8 @@
 import * as pulumi from '@pulumi/pulumi';
 import * as aws from '@pulumi/aws';
-import { getDomainAndSubdomain } from '../../../client/infrastructure/common/utils';
-import { TEN_MINUTES } from '../../../client/infrastructure/common';
 import { CertificateValidation } from '@pulumi/aws/acm';
 import { Shared } from '../Shared';
-import { CONFIG } from '../common';
+import { TEN_MINUTES, getDomainAndSubdomain } from '../common';
 
 export class ACM {
   certificateArn: string | pulumi.Output<string>;
@@ -18,16 +16,7 @@ export class ACM {
     isEdge: boolean,
     parent: Shared
   ) {
-    // const certificateArn = CONFIG.get("certificateArn");
-
-    // if (certificateArn) {
-    //   this.needsToBeGenerated = false;
-    //   this.certificateArn = certificateArn;
-    // } else {
-
       const type = isEdge ? 'edge' : 'regional';
-    // const domainName = isEdge ? targetDomain : `ws.${targetDomain}` 
-      // const region = CONFIG.get("region") as pulumi.Input<aws.Region>;
 
       const provider = new aws.Provider(
         `${name}_${type}_cert`,

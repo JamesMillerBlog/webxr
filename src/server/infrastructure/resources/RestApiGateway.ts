@@ -3,7 +3,6 @@ import * as pulumi from '@pulumi/pulumi';
 import { Server } from '../Server';
 import { DOMAIN, STACK } from '../../../shared/infrastructure/common';
 import { DomainName, Resource, RestApi } from '@pulumi/aws/apigateway';
-import { ACM } from '../../../shared/infrastructure/resources';
 import { Endpoint } from './RestLambda';
 import { Authorizer } from '@pulumi/aws/apigateway/authorizer';
 
@@ -18,9 +17,9 @@ export class RestApiGateway {
   constructor(
     parent: Server,
     name: string,
-    acm: ACM,
     endpoints: Endpoint[],
-    userPoolArn: pulumi.Output<string>,
+    edgeCertificationArn: string,
+    cognitoUserPoolArn: string,
     deploymentVersion: string,
   ) {
     this.parent = parent;
@@ -58,7 +57,7 @@ export class RestApiGateway {
     this.domainName = new aws.apigateway.DomainName(
       `${name}_domain`,
       {
-        certificateArn: acm.certificateArn,
+        certificateArn: edgeCertificationArn,
         domainName: `api.${DOMAIN}`,
         endpointConfiguration: { types: 'EDGE' },
         securityPolicy: 'TLS_1_2',
@@ -72,7 +71,7 @@ export class RestApiGateway {
         name: `${name}_cognito_authorizer`,
         restApi: this.restApi.id,
         type: 'COGNITO_USER_POOLS',
-        providerArns: [userPoolArn],
+        providerArns: [cognitoUserPoolArn],
       },
       {
         parent,

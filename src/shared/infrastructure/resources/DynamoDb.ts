@@ -1,5 +1,5 @@
 import { dynamodb } from '@pulumi/aws';
-import { Server } from '../Server';
+import { Shared } from '../Shared';
 import * as pulumi from '@pulumi/pulumi';
 
 export class DynamoDb {
@@ -8,7 +8,7 @@ export class DynamoDb {
 
   constructor(
     name: string,
-    parent: Server,
+    parent: Shared,
     hashKey: string,
     hashKeyType: string,
     rangeKey?: string,

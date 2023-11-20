@@ -4,7 +4,6 @@ import * as pulumi from '@pulumi/pulumi';
 import { DOMAIN, STACK } from '../../../shared/infrastructure/common';
 import { Route } from './WebsocketLambda';
 import { Api, DomainName } from '@pulumi/aws/apigatewayv2';
-import { ACM } from '../../../shared/infrastructure/resources';
 
 export class WebsocketApiGateway {
   gateway: Api;
@@ -13,8 +12,8 @@ export class WebsocketApiGateway {
   constructor(
     parent: Server,
     name: string,
-    acm: ACM,
     routes: Route[],
+    regionalCertificateArn: string,
     deploymentVersion: string,
   ) {
     this.gateway = new Api(
@@ -106,7 +105,7 @@ export class WebsocketApiGateway {
       {
         domainName: `ws.${DOMAIN}`,
         domainNameConfiguration: {
-          certificateArn: acm.certificateArn,
+          certificateArn: regionalCertificateArn,
           endpointType: 'REGIONAL',
           securityPolicy: 'TLS_1_2',
         },

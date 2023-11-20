@@ -1,5 +1,5 @@
 import * as aws from '@pulumi/aws';
-import { Server } from '../Server';
+import { Shared } from '../Shared';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Cognito {
@@ -8,7 +8,7 @@ export class Cognito {
   userPoolArn: pulumi.Output<string>;
   identityPoolId: pulumi.Output<string>;
 
-  constructor(name: string, parent: Server, initialUserEmail?: string) {
+  constructor(name: string, parent: Shared, initialUserEmail?: string) {
     const pool = new aws.cognito.UserPool(
       `${name}_pool`,
       {

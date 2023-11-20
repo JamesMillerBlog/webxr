@@ -1,0 +1,6 @@
+config:
+  aws:region: eu-west-2
+  region: eu-west-2
+  targetDomain: pulumi.newpilot.app
+  projectSharedResources: webxr-shared
+  readyPlayerMe: james-miller-blog

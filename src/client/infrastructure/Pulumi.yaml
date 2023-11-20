@@ -1,0 +1,6 @@
+name: webxr-client
+runtime: nodejs
+description:
+  Cloud infrastructure for the Front End
+  # backend:
+  #   url: <s3-url>

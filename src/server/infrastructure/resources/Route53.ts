@@ -1,8 +1,8 @@
 import * as aws from '@pulumi/aws';
 import { Server } from '../Server';
-import { getDomainAndSubdomain } from '../../../client/infrastructure/common';
 import { RestApiGateway } from './RestApiGateway';
 import { WebsocketApiGateway } from './WebsocketApiGateway';
+import { getDomainAndSubdomain } from '../../../shared/infrastructure/common';
 
 export class Route53 {
   constructor(
@@ -17,7 +17,7 @@ export class Route53 {
       .then((zone) => zone.zoneId);
 
     new aws.route53.Record(
-      'apiRecord',
+      `${targetDomain}_apiRecord`,
       {
         zoneId,
         name: `api.${targetDomain}`,
@@ -37,7 +37,7 @@ export class Route53 {
     );
 
     new aws.route53.Record(
-      'wsApiRecord',
+      `${targetDomain}_wsApiRecord`,
       {
         zoneId,
         name: `ws.${targetDomain}`,

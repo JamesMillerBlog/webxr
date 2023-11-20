@@ -8,7 +8,8 @@ export const handler = async (
   context: Context,
   callback: Callback,
 ) => {
-  const { REGION, COGNITO_USER_POOL_ID } = process.env;
+  const { REGION, COGNITO_USER_POOL_ID, CONNECTIONS_TABLE_ID } = process.env;
+
   if (event.queryStringParameters == undefined)
     return context.fail('Unauthorized');
   const keys_url = `https://cognito-idp.${REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}/.well-known/jwks.json`;
@@ -79,7 +80,7 @@ export const handler = async (
       Item: {
         connectionId,
       },
-      TableName: process.env.CONNECTIONS_TABLE_ID,
+      TableName: CONNECTIONS_TABLE_ID,
     };
     await dynamoDb.put(putParams).promise();
 

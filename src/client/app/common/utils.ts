@@ -1,5 +1,4 @@
 "use client";
-
 import { Device } from "../stores";
 import { DOMAIN_NAME, IS_LOCAL } from "./consts";
 

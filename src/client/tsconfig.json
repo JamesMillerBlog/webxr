@@ -7,7 +7,9 @@
       "esnext"
     ],
     "paths": {
-      "@shared/*": ["./../shared/*"]
+      "@shared/*": [
+        "./../shared/*"
+      ]
     },
     "rootDirs": [
       "./app",
@@ -35,9 +37,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/types/**/*.tsx"
-, "../shared/infrastructure/resources"  ],
+    "../shared/infrastructure/resources",
+    ".next/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

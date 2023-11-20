@@ -5,9 +5,9 @@
         "@types/node": "^16"
     },
     "scripts": {
-        "pulumi:login": "cd infrastructure && pulumi login <s3-url>",
-        "pulumi:stack:init": "cd infrastructure && pulumi stack init <stack-name> eg dev",
-        "pulumi:stack:select": "cd infrastructure && pulumi stack select <stack-name>",
+        "pulumi:login": "cd infrastructure && pulumi login",
+        "pulumi:stack:init": "cd infrastructure && pulumi stack init",
+        "pulumi:stack:select": "cd infrastructure && pulumi stack select",
         "pulumi:preview": "cd infrastructure && pulumi preview",
         "pulumi:up": "cd infrastructure && pulumi up -y",
         "pulumi:down": "cd infrastructure && pulumi down -y",

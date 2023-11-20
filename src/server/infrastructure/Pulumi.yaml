@@ -1,0 +1,6 @@
+name: webxr-server
+runtime: nodejs
+description:
+  Cloud infrastructure for the Back End
+  # backend:
+  #   url: <s3-url>
