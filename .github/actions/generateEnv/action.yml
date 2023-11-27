@@ -26,6 +26,7 @@ inputs:
 
 runs:
   using: 'composite'
+  shell: bash
   steps:
     - name: Deploy
       run: npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} ${{ inputs.aws-region }} ${{ inputs.ready-player-me-subdomain }}
