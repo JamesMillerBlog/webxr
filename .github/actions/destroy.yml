@@ -36,5 +36,8 @@ runs:
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}
 
-    - name: Deploy
+    - name: Pre-Destroy
+      run:   npm run deploy:all:target-env ${{ inputs.stack }} ${{ inputs.domain-name }} ${{ inputs.ready-player-me-subdomain }} ${{ inputs.project-name }} ${{ inputs.aws-region }}
+
+    - name: Destroy
       run:   npm run deploy:all:target-env ${{ inputs.stack }} ${{ inputs.domain-name }} ${{ inputs.ready-player-me-subdomain }} ${{ inputs.project-name }} ${{ inputs.aws-region }}
