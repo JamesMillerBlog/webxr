@@ -10,8 +10,8 @@ export const checkEnvironmentVariables = () => {
       COGNITO_USER_POOL_CLIENT_ID:
         process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID,
     },
-    { REGION: process.env.NEXT_PUBLIC_REGION },
-    { READY_PLAYER_ME: process.env.NEXT_PUBLIC_READY_PLAYER_ME },
+    { REGION: process.env.NEXT_PUBLIC_AWS_REGION },
+    { READY_PLAYER_ME: process.env.NEXT_PUBLIC_READY_PLAYER_ME_SUBDOMAIN },
   ];
 
   const missingVars: string[] = [];
@@ -36,8 +36,8 @@ export const checkEnvironmentVariables = () => {
     COGNITO_USER_POOL_CLIENT_ID: String(
       process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID
     ),
-    REGION: String(process.env.NEXT_PUBLIC_REGION),
-    READY_PLAYER_ME: String(process.env.NEXT_PUBLIC_READY_PLAYER_ME),
+    REGION: String(process.env.NEXT_PUBLIC_AWS_REGION),
+    READY_PLAYER_ME: String(process.env.NEXT_PUBLIC_READY_PLAYER_ME_SUBDOMAIN),
     IS_LOCAL: process.env.NEXT_PUBLIC_LOCAL_IP_ADDRESS ? true : false,
   };
 };

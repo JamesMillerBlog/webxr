@@ -15,7 +15,10 @@
     "pulumi:down": "cd infrastructure && pulumi down -y",
     "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
     "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop",
-    "deploy": "npm run build && npm run pulumi:up"
+    "pulumi:login": "cd ../../ && ts-node ./wrapper/scripts/pulumiStackLogin.ts client",
+    "deploy": "npm run pulumi:login && npm run predeploy:generateEnvs && npm run build && npm run pulumi:up && npm run postdeploy:cleanUp",
+    "predeploy:generateEnvs": "cd ../../ && ts-node wrapper/scripts/generateDeploymentEnvs.ts client",
+    "postdeploy:cleanUp": "cd ../../ && ts-node ./wrapper/scripts/postDeploymentCleanup.ts client"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.6",

@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import * as aws from 'aws-sdk';
 import { SharedResources } from "../Shared";
 import { SHARED_STACK } from "./consts";
@@ -55,23 +54,3 @@ export const getSharedResources = async () => {
     regionalCertificateArn: String(regionalCertificateArn),
   };
 };
-
-export const generateEnvFromSecret = (secretsName: string, fileLocation: string, stack: string) => {
-    const secretsManager = new aws.SecretsManager();
-
-    secretsManager.getSecretValue({ SecretId: secretsName }, (err, data) => {
-        if(err) {
-            console.error(err)
-            return;
-        }
-        
-        const secrets = JSON.parse(data.SecretString || '{}');
-        
-        let envString = '';
-        for (const key of Object.keys(secrets)) envString += `${key}="${secrets[key]}"\n`;
-
-        const location = `${process.cwd()}/${fileLocation}`
-        fs.writeFileSync(`${location}.env.${stack}`, envString);
-        fs.writeFileSync(`${location}.env.local`, envString)
-    });
-}

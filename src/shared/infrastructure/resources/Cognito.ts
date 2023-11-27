@@ -8,7 +8,7 @@ export class Cognito {
   userPoolArn: pulumi.Output<string>;
   identityPoolId: pulumi.Output<string>;
 
-  constructor(name: string, parent: Shared, initialUserEmail?: string) {
+  constructor(name: string, parent: Shared) {
     const pool = new aws.cognito.UserPool(
       `${name}_pool`,
       {
@@ -47,22 +47,20 @@ export class Cognito {
       { parent },
     );
 
-    if (initialUserEmail) {
-      new aws.cognito.User(
-        `${name}_initial_user`,
-        {
-          userPoolId: pool.id,
-          username: initialUserEmail,
-          attributes: {
-            email: initialUserEmail,
-            email_verified: 'true',
-          },
-          password: 'Test1234!',
+    new aws.cognito.User(
+      `${name}_initial_user`,
+      {
+        userPoolId: pool.id,
+        username: "test@test.com",
+        attributes: {
+          email: "test@test.com",
+          email_verified: 'true',
         },
-        { parent },
-      );
-    }
-
+        password: 'Test1234!',
+      },
+      { parent },
+    );
+    
     const authenticatedRole = new aws.iam.Role(
       `${name}_auth_role`,
       {

@@ -1,6 +1,6 @@
+encryptionsalt: v1:ZOAKnrIfed0=:v1:BudPgwSZqQx4t72W:+TDE7l4LQH+rRb5x9tHpNZ/SHG5F5w==
 config:
   aws:region: eu-west-2
-  region: eu-west-2
-  targetDomain: pulumi.newpilot.app
-  projectSharedResources: webxr-shared
-  readyPlayerMe: james-miller-blog
+  whoa-client:projectSharedResources: whoa-shared
+  whoa-client:region: eu-west-2
+  whoa-client:targetDomain: test.newpilot.app

@@ -1,6 +1,5 @@
-name: webxr-server
+name: whoa-server
 runtime: nodejs
-description:
-  Cloud infrastructure for the Back End
-  # backend:
-  #   url: <s3-url>
+description: Cloud infrastructure for the server stack
+backend:
+  url: s3://whoa-pulumi-backend-state

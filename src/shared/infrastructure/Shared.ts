@@ -1,7 +1,7 @@
 import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
 import { ACM, Cognito, DynamoDb, SecretsManager } from "./resources";
-import { BASE_SECRET_NAME, NAME, PROJECT_STACK } from "./common";
+import { BASE_SECRET_NAME, NAME, PROJECT_STACK, STACK } from "./common";
 import { Secrets } from './types'
 
 export interface SharedResources {
@@ -31,11 +31,10 @@ export class Shared extends pulumi.ComponentResource {
     );
   }
 
-  cognito(initialUserEmail: string) {
+  cognito() {
     return new Cognito(
       `${PROJECT_STACK}_cognito`,
       this,
-      initialUserEmail,
     )
   }
 
@@ -45,8 +44,8 @@ export class Shared extends pulumi.ComponentResource {
 
   secretsManager(secrets:Secrets) {
     return {
-      client:  new SecretsManager(`${BASE_SECRET_NAME}-client-local`, secrets.client, this),
-      server:  new SecretsManager(`${BASE_SECRET_NAME}-server-local`, secrets.server, this),
+      client:  new SecretsManager(`${BASE_SECRET_NAME}-client-${STACK}-test-2`, secrets.client, this),
+      server:  new SecretsManager(`${BASE_SECRET_NAME}-server-${STACK}-test-2`, secrets.server, this),
     }
   }
 

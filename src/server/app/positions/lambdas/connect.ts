@@ -8,11 +8,12 @@ export const handler = async (
   context: Context,
   callback: Callback,
 ) => {
-  const { REGION, COGNITO_USER_POOL_ID, CONNECTIONS_TABLE_ID } = process.env;
+  const { AWS_REGION, COGNITO_USER_POOL_ID, CONNECTIONS_TABLE_ID } =
+    process.env;
 
   if (event.queryStringParameters == undefined)
     return context.fail('Unauthorized');
-  const keys_url = `https://cognito-idp.${REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}/.well-known/jwks.json`;
+  const keys_url = `https://cognito-idp.${AWS_REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}/.well-known/jwks.json`;
   const {
     queryStringParameters: { token },
   } = event;

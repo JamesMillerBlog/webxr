@@ -5,7 +5,6 @@
         "@types/node": "^16"
     },
     "scripts": {
-        "pulumi:login": "cd infrastructure && pulumi login",
         "pulumi:stack:init": "cd infrastructure && pulumi stack init",
         "pulumi:stack:select": "cd infrastructure && pulumi stack select",
         "pulumi:preview": "cd infrastructure && pulumi preview",
@@ -14,6 +13,7 @@
         "pulumi:stack:rm": "cd infrastructure && pulumi stack rm",
         "pulumi:whoami": "cd infrastructure && pulumi whoami",
         "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
-        "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop"
+        "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop",
+        "pulumi:login": "cd ../../ && ts-node ./wrapper/scripts/pulumiStackLogin.ts shared"
     }
 }

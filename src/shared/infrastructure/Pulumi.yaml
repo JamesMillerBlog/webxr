@@ -1,5 +1,5 @@
-name: webxr-shared
+name: whoa-shared
 runtime: nodejs
 description: Cloud infrastructure shared across the stack
-  # backend:
-  #   url: <s3-url>
+backend:
+  url: s3://whoa-pulumi-backend-state
