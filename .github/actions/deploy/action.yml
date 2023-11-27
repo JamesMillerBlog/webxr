@@ -23,10 +23,18 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Initialise Environment
+    - name: Setup Pulumi
       shell: bash
       run: |
         echo "Setting PULUMI_CONFIG_PASSPHRASE..."
         export PULUMI_CONFIG_PASSPHRASE=${{ inputs.pulumi-config-passphrase }}
         echo "PULUMI_CONFIG_PASSPHRASE=$PULUMI_CONFIG_PASSPHRASE" >> $GITHUB_ENV
-        npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} ${{ inputs.aws-region }} ${{ inputs.ready-player-me-subdomain }}
+
+    - name: Initialise Environment
+      shell: bash
+      run: npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} ${{ inputs.aws-region }} ${{ inputs.ready-player-me-subdomain }}
+
+
+
+  # Rename this file to Initialise Environment
+  # Fill out this 
