@@ -12,7 +12,7 @@ on:
         required: true
 
 jobs:
-  setup_env:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -32,10 +32,6 @@ jobs:
         shell: bash
         run: npm install
 
-      - name: Configure Pulumi Passphrase
-        shell: bash
-        run: export PULUMI_CONFIG_PASSPHRASE=${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
-
       - name: Deploy Full Stack Application and Infrastructure
         uses: ./.github/actions/deploy
         with:
@@ -44,3 +40,4 @@ jobs:
           project-name: ${{ inputs.project-name }}
           ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
           aws-region: ${{ secrets.AWS_REGION }}
+          pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
