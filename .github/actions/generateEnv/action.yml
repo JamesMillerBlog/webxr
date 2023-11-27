@@ -43,10 +43,6 @@ runs:
     - name: Get Region
       run: |
         echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $REGION
-    
-    - name: Install Dependencies
-      run: |
-        npm install
 
     - name: Deploy
       run: npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} $REGION ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
