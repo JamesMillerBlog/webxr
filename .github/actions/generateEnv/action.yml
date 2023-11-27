@@ -43,6 +43,7 @@ runs:
     - name: Get Region
       run: |
         echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $REGION
+        echo "READY_PLAYER_ME_SUBDOMAIN=${{vars.READY_PLAYER_ME_SUBDOMAIN}}" >> $READY_PLAYER_ME_SUBDOMAIN
 
     - name: Deploy
-      run: npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} $REGION ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
+      run: npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} $REGION $READY_PLAYER_ME_SUBDOMAIN
