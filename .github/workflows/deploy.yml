@@ -40,4 +40,3 @@ jobs:
           project-name: ${{ inputs.project-name }}
           ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
           aws-region: ${{ secrets.AWS_REGION }}
-          pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}

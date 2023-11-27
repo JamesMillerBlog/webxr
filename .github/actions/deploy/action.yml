@@ -16,9 +16,6 @@ inputs:
   aws-region:
     description: 'AWS Region: e.g us-east-1'
     required: true
-  pulumi-config-passphrase:
-    description: 'Passphrase for Pulumi'
-    required: true
 
 runs:
   using: 'composite'
@@ -27,8 +24,8 @@ runs:
       shell: bash
       run: |
         echo "Setting PULUMI_CONFIG_PASSPHRASE..."
-        export PULUMI_CONFIG_PASSPHRASE=${{ inputs.pulumi-config-passphrase }}
+        export PULUMI_CONFIG_PASSPHRASE=${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
         echo "PULUMI_CONFIG_PASSPHRASE set to: $PULUMI_CONFIG_PASSPHRASE"        
         npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} ${{ inputs.aws-region }} ${{ inputs.ready-player-me-subdomain }}
       env:
-        PULUMI_CONFIG_PASSPHRASE: ${{ inputs.pulumi-config-passphrase }}
+        PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
