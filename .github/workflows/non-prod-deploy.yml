@@ -8,6 +8,8 @@ on:
                 required: true
             domain-name:
                 required: true
+            project-name:
+                required: true
             
 jobs:
     setup_env:
