@@ -23,8 +23,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Deploy
+    - name: Initialise Environment
       shell: bash
       run: |
         export PULUMI_CONFIG_PASSPHRASE=${{ inputs.pulumi-config-passphrase }}
         npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} ${{ inputs.aws-region }} ${{ inputs.ready-player-me-subdomain }}
+      env:
+        PULUMI_CONFIG_PASSPHRASE: ${{ inputs.pulumi-config-passphrase }}
