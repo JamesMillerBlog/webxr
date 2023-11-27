@@ -14,7 +14,10 @@ on:
 jobs:
     setup_env:
         runs-on: ubuntu-latest
-        steps:  
+        steps: 
+          - name: Checkout Repository
+            uses: actions/checkout@v3
+        
           - name: Initiate Environment
             uses: ./.github/actions/generateEnv
 
