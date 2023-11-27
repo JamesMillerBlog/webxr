@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: npm install
 
-      - name: Deploy Full Stack Application and Infrastructure
+      - name: Initiate Deploy Scripts
         uses: ./.github/actions/deploy
         with:
           stack: ${{ inputs.stack }}
