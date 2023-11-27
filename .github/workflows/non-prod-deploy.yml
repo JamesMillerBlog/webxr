@@ -1,26 +1,30 @@
 name: 'Non-Prod Deploy'
 
 on:
-    workflow_dispatch:
-        inputs:
-            stack:
-                default: dev
-                required: true
-            domain-name:
-                required: true
-            project-name:
-                required: true
-            
-jobs:
-    setup_env:
-        runs-on: ubuntu-latest
-        steps: 
-          - name: Checkout Repository
-            uses: actions/checkout@v3
-        
-          - name: Initiate Environment
-            uses: ./.github/actions/generateEnv
+  workflow_dispatch:
+    inputs:
+      stack:
+        default: dev
+        required: true
+      domain-name:
+        required: true
+      project-name:
+        required: true
 
+jobs:
+  setup_env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Initiate Environment
+        uses: ./.github/actions/generateEnv
+        with:
+          stack: ${{ inputs.stack }}
+          domain-name: ${{ inputs.domain-name }}
+          project-name: ${{ inputs.project-name }}
+          
           # - uses: actions/checkout@v3
           # - uses: actions/setup-node@v3
           #   with:
