@@ -1,0 +1,46 @@
+name: 'Deploy'
+
+on:
+  workflow_dispatch:
+    inputs:
+      stack:
+        default: dev
+        required: true
+      domain-name:
+        required: true
+      project-name:
+        required: true
+
+jobs:
+  setup_env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Npm Install
+        shell: bash
+        run: npm install
+
+      - name: Configure Pulumi Passphrase
+        shell: bash
+        run: export PULUMI_CONFIG_PASSPHRASE=${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+
+      - name: Deploy Full Stack Application and Infrastructure
+        uses: ./.github/actions/deploy
+        with:
+          stack: ${{ inputs.stack }}
+          domain-name: ${{ inputs.domain-name }}
+          project-name: ${{ inputs.project-name }}
+          ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
+          aws-region: ${{ secrets.AWS_REGION }}
