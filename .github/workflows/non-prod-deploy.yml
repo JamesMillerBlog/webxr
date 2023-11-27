@@ -38,10 +38,8 @@ jobs:
           stack: ${{ inputs.stack }}
           domain-name: ${{ inputs.domain-name }}
           project-name: ${{ inputs.project-name }}
-          # - name: Install Wrapper.js
-          #   run: npm install -g jamesmillerblog/wrapper.js
-          # - name: Create Dev Secret
-          #   run: gobble duplicate ${{ secrets.WRAPPERJS_SECRET_NAME }} dev
+          ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
 
     
