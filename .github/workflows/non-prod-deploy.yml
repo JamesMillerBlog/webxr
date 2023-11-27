@@ -17,6 +17,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Initiate Environment
         uses: ./.github/actions/generateEnv
@@ -24,17 +34,6 @@ jobs:
           stack: ${{ inputs.stack }}
           domain-name: ${{ inputs.domain-name }}
           project-name: ${{ inputs.project-name }}
-          
-          # - uses: actions/checkout@v3
-          # - uses: actions/setup-node@v3
-          #   with:
-          #     node-version: latest
-          # - name: Configure AWS Credentials
-          #   uses: aws-actions/configure-aws-credentials@v1
-          #   with:
-          #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          #     aws-region: ${{ secrets.AWS_REGION }}
           # - name: Install Wrapper.js
           #   run: npm install -g jamesmillerblog/wrapper.js
           # - name: Create Dev Secret
