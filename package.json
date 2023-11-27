@@ -1,11 +1,37 @@
 {
   "name": "@jamesmillerblog/webxr",
+  "private": "true",
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
+  "workspaces": [
+    "src/client",
+    "src/shared",
+    "src/server"
+  ],
+  "dependencies": {
+    "@pulumi/aws": "^5.0.0",
+    "@pulumi/pulumi": "^3.0.0",
+    "bufferutil": "^4.0.7",
+    "ts-node": "^10.9.1",
+    "utf-8-validate": "^5.0.10"
+  },
   "scripts": {
-    "dev": "gobble dev",
-    "deployBackend": "gobble sls deploy"
+    "dev": "npm run start:dev --workspace=@webxr/client & npm run start:dev --workspace=@webxr/server",
+    "deploy:all:target-env": "ts-node ./wrapper/scripts/setup",
+    "deploy:all": "npm run deploy:shared && npm run deploy:client-and-server && npm run scripts:remove",
+    "deploy:client-and-server": "npm run deploy:client && npm run deploy:server",
+    "deploy:shared": "npm run pulumi:up --workspace=@webxr/shared",
+    "deploy:client": "npm run deploy --workspace=@webxr/client",
+    "deploy:server": "npm run deploy --workspace=@webxr/server",
+    "destroy:all:target-env": "ts-node ./wrapper/scripts/destroy",
+    "destroy:all": "npm run destroy:client && npm run destroy:server && npm run destroy:shared",
+    "destroy:client-and-server": "npm run destroy:client && npm run destroy:server",
+    "destroy:shared": "npm run pulumi:down --workspace=@webxr/shared",
+    "destroy:client": "npm run pulumi:down --workspace=@webxr/client",
+    "destroy:server": "npm run pulumi:down --workspace=@webxr/server",
+    "generate:target-envs": "ts-node ./wrapper/scripts/envs",
+    "cd:initEnvCli": "ts-node ./wrapper/scripts/initCliParams"
   },
   "repository": {
     "type": "git",
@@ -15,5 +41,11 @@
     "registry": "https://npm.pkg.github.com"
   },
   "author": "James Miller",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2"
+  }
 }
