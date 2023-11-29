@@ -41,6 +41,7 @@ jobs:
           ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
           aws-region: ${{ secrets.AWS_REGION }}
           pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+          
       - name: Deploy Shared Resources
         uses: ./.github/actions/deploy-shared
         with:
