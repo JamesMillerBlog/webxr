@@ -21,7 +21,7 @@
     "pulumi:down": "cd infrastructure && pulumi down -y",
     "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
     "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop",
-    "pulumi:login": "cd ../../ ts-node ./scripts/pulumi/pulumiStackLogin.ts server",
+    "pulumi:login": "cd ../../ && ts-node ./scripts/pulumi/pulumiStackLogin.ts server",
     "deploy": "npm run pulumi:login && npm run predeploy:generateEnvs && npm run build:all && sleep 5 && npm run pulumi:up && npm run postdeploy:cleanUp",
     "predeploy:generateEnvs": "cd ../../ && ts-node ./scripts/env/generateDeploymentEnvs.ts server",
     "postdeploy:cleanUp": "cd ../.. && ts-node ./scripts/env/postDeploymentCleanup.ts server"
