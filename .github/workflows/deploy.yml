@@ -41,11 +41,18 @@ jobs:
           ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
           aws-region: ${{ secrets.AWS_REGION }}
           pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
-          
+
       - name: Deploy Shared Resources
         uses: ./.github/actions/deploy-shared
         with:
           stack: ${{ inputs.stack }}
 
-      # Create new yml for deploy Shared / Server / Client
-      # Declare them above
+      - name: Deploy Client Resources
+        uses: ./.github/actions/deploy-client
+        with:
+          stack: ${{ inputs.stack }}
+
+      - name: Deploy Server Resources
+        uses: ./.github/actions/deploy-server
+        with:
+          stack: ${{ inputs.stack }}      

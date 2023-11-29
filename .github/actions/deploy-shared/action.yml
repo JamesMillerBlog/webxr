@@ -9,8 +9,11 @@ runs:
   using: 'composite'
   steps:
   - name: Generate Shared Envs
-      shell: bash
-      run: npm run cd:generateEnvs ${{ inputs.stack }}
+    shell: bash
+    run: npm run cd:generateEnvs ${{ inputs.stack }}
   - name: Deploy Shared Infrastructure
-      shell: bash
-      run: npm run deploy:shared
+    shell: bash
+    run: npm run deploy:shared
+  - name: Generate Client and Server Envs
+    shell: bash
+    run: npm run cd:generateEnvs ${{ inputs.stack }}

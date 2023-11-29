@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { retrieveSecret } from '../utils';
 
 // example usage:
-// npm run scripts:setup whoa-client-dev-local-test-2 . development.local
+// npm run scripts:setup whoa-client-dev-local . development.local
 
 // Check if all required parameters are provided
 if (process.argv.length !== 5) {

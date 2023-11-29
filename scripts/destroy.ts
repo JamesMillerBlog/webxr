@@ -41,8 +41,8 @@ execSync('npm run destroy:client-and-server && npm run destroy:shared', {
 const bucketToDelete = `${projectName}-pulumi-backend-state`;
 deleteS3Bucket(bucketToDelete);
 
-const clientSecretName = `${projectName}-client-dev-local-test-2`;
-const serverSecretName = `${projectName}-server-dev-local-test-2`;
+const clientSecretName = `${projectName}-client-dev-local`;
+const serverSecretName = `${projectName}-server-dev-local`;
 
 deleteSecret(clientSecretName);
 deleteSecret(serverSecretName);

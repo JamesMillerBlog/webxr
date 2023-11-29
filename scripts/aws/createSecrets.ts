@@ -8,8 +8,8 @@ const clientEnvs = loadEnvVariables('.env.client.local').parsed;
 const serverEnvs = loadEnvVariables('.env.server.local').parsed;
 const { STACK } = loadEnvVariables('.env.local').parsed;
 
-const serverSecretName = `${serverEnvs.PROJECT_NAME}-server-${STACK}-local-test-2`;
-const clientSecretName = `${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${STACK}-local-test-2`;
+const serverSecretName = `${serverEnvs.PROJECT_NAME}-server-${STACK}-local`;
+const clientSecretName = `${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${STACK}-local`;
 
 const serverSecretExists = checkSecretExists(serverSecretName);
 const clientSecretExists = checkSecretExists(serverSecretName);

@@ -22,25 +22,25 @@ const formattedStackName =
 
 // Call the generate env script with parameters for server environment (manually configured)
 execSync(
-  `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack}-local-test-2 ${SERVER_DIR} ${formattedStackName}.local`,
+  `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack}-local ${SERVER_DIR} ${formattedStackName}.local`,
   { stdio: 'inherit' },
 );
 
 // Call the generate env script with parameters for client environment (manually configured)
 execSync(
-  `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack}-local-test-2 ${CLIENT_DIR} ${formattedStackName}.local`,
+  `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack}-local ${CLIENT_DIR} ${formattedStackName}.local`,
   { stdio: 'inherit' },
 );
 
 if (includePulumiSecrets) {
   // Call the generate env script with parameters for server local environment (auto generated)
   execSync(
-    `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack}-test-2 ${SERVER_DIR} ${formattedStackName}`,
+    `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack} ${SERVER_DIR} ${formattedStackName}`,
     { stdio: 'inherit' },
   );
   // Call the generate env script with parameters for client local environment (auto generated)
   execSync(
-    `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack}-test-2 ${CLIENT_DIR} ${formattedStackName}`,
+    `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack} ${CLIENT_DIR} ${formattedStackName}`,
     { stdio: 'inherit' },
   );
 }

@@ -44,8 +44,8 @@ export class Shared extends pulumi.ComponentResource {
 
   secretsManager(secrets:Secrets) {
     return {
-      client:  new SecretsManager(`${BASE_SECRET_NAME}-client-${STACK}-test-2`, secrets.client, this),
-      server:  new SecretsManager(`${BASE_SECRET_NAME}-server-${STACK}-test-2`, secrets.server, this),
+      client:  new SecretsManager(`${BASE_SECRET_NAME}-client-${STACK}`, secrets.client, this),
+      server:  new SecretsManager(`${BASE_SECRET_NAME}-server-${STACK}`, secrets.server, this),
     }
   }
 
