@@ -1,4 +1,4 @@
-import { CLIENT_DIR, SCRIPTS_DIR, SERVER_DIR } from '../common/consts';
+import { CLIENT_DIR, PULUMI_SCRIPTS, SERVER_DIR } from '../common/consts';
 import {
   addToEnvFile,
   extractPulumiEnvs,
@@ -78,7 +78,7 @@ replacePulumiStackYaml(
 );
 
 // Logs into the shared pulumi stack
-execSync(`ts-node ${SCRIPTS_DIR}/pulumiStackLogin.ts shared`, {
+execSync(`ts-node ${PULUMI_SCRIPTS}/pulumiStackLogin.ts shared`, {
   stdio: 'inherit',
 });
 

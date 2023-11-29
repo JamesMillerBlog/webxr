@@ -1,4 +1,4 @@
-import { CLIENT_DIR, InfrastructureType, SERVER_DIR } from '../common/consts';
+import { CLIENT_DIR, InfrastructureType, SERVER_DIR } from '../common';
 import { deleteEnv } from '../utils';
 
 const infType = process.argv[2];

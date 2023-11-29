@@ -1,4 +1,4 @@
-import { SCRIPTS_DIR } from '../common/consts';
+import { ENV_SCRIPTS } from '../common/consts';
 import { createEnvFileIfNotExist, addToEnvFile } from '../utils';
 import { execSync } from 'child_process';
 
@@ -26,7 +26,7 @@ try {
   console.log('');
   console.log('');
 
-  execSync(`ts-node ${SCRIPTS_DIR}/generateEnvs.ts ${stack} true`, {
+  execSync(`ts-node ${ENV_SCRIPTS}/generateEnvs.ts ${stack} true`, {
     stdio: 'inherit',
   });
 } catch (e) {

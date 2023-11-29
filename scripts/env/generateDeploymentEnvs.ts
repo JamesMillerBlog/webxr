@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { generateEnvLocal, loadEnvVariables } from '../utils';
-import { CLIENT_DIR, InfrastructureType, SERVER_DIR } from '../common/consts';
+import { CLIENT_DIR, InfrastructureType, SERVER_DIR } from '../common';
 
 const infType = process.argv[2];
 if (!infType) {

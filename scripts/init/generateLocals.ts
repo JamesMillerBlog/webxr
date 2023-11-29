@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { SCRIPTS_DIR } from '../common/consts';
+import { INIT_SCRIPTS } from '../common/consts';
 
 // Check if all required parameters are provided
 if (process.argv.length === 6) {
@@ -10,10 +10,10 @@ if (process.argv.length === 6) {
 
   // prompt user for their manual configurations and generate .env.client.local and .env.server.local files
   execSync(
-    `ts-node ${SCRIPTS_DIR}/initCliParams.ts ${domainName} ${projectName} ${awsRegion} ${readyPlayerMeSubdomain}`,
+    `ts-node ${INIT_SCRIPTS}/cliParams.ts ${domainName} ${projectName} ${awsRegion} ${readyPlayerMeSubdomain}`,
     { stdio: 'inherit' },
   );
 } else {
   // prompt user for their manual configurations and generate .env.client.local and .env.server.local files
-  execSync(`ts-node ${SCRIPTS_DIR}/prompts.ts`, { stdio: 'inherit' });
+  execSync(`ts-node ${INIT_SCRIPTS}/prompts.ts`, { stdio: 'inherit' });
 }

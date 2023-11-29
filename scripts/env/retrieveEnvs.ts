@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { SCRIPTS_DIR } from '../common/consts';
+import { ENV_SCRIPTS } from '../common';
 import { checkPulumiConfigPassphraseExists } from '../utils';
 
 console.log(
@@ -34,10 +34,10 @@ if (!stack) {
 console.log('');
 console.log('');
 
-execSync(`ts-node ${SCRIPTS_DIR}/pullStackEnvs.ts ${projectName} ${stack}`, {
+execSync(`ts-node ${ENV_SCRIPTS}/pullStackEnvs.ts ${projectName} ${stack}`, {
   stdio: 'inherit',
 });
 
-execSync(`ts-node ${SCRIPTS_DIR}/generateEnvs.ts ${stack}`, {
+execSync(`ts-node ${ENV_SCRIPTS}/generateEnvs.ts ${stack}`, {
   stdio: 'inherit',
 });

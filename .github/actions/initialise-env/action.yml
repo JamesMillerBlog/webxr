@@ -31,10 +31,16 @@ runs:
         npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.ready-player-me-subdomain }} ${{ inputs.project-name }} ${{ inputs.aws-region }}
     - name: Setup S3 State Buckets
       shell: bash
-      run: |
-        npm run cd:s3StateBucketsSetup
-
-
-  # Rename this file to Initialise Environment
-  # Fill out this until Generate Env
-  # see workflows/deploy.yml
+      run: npm run cd:s3StateBucketsSetup
+  - name: Init Pulumi
+      shell: bash
+      run: npm run cd:initPulumi ${{ stack }}
+  - name: Create Secrets
+      shell: bash
+      run: npm run cd:createSecrets
+  - name: Generate Shared Envs
+      shell: bash
+      run: npm run cd:cd:generateEnvs ${{ stack }}
+  - name: Deploy Shared Infrastructure
+      shell: bash
+      run: npm run deploy:shared

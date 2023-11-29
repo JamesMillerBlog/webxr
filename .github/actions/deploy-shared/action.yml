@@ -1,0 +1,16 @@
+name: 'Deploy Shared Resources'
+description: 'Deploy all shared resources'
+inputs:
+  stack:
+    description: 'Stack Name: e.g dev'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Generate Shared Envs
+      shell: bash
+      run: npm run cd:cd:generateEnvs ${{ stack }}
+  - name: Deploy Shared Infrastructure
+      shell: bash
+      run: npm run deploy:shared

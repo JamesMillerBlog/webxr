@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import { loadEnvVariables } from '../utils';
-import { CLIENT_DIR, SCRIPTS_DIR, SERVER_DIR } from '../common/consts';
+import { CLIENT_DIR, ENV_SCRIPTS, SERVER_DIR } from '../common/consts';
 
 console.log('Now attempting to generate an env files from secrets');
 
@@ -22,25 +22,25 @@ const formattedStackName =
 
 // Call the generate env script with parameters for server environment (manually configured)
 execSync(
-  `ts-node ${SCRIPTS_DIR}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack}-local-test-2 ${SERVER_DIR} ${formattedStackName}.local`,
+  `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack}-local-test-2 ${SERVER_DIR} ${formattedStackName}.local`,
   { stdio: 'inherit' },
 );
 
 // Call the generate env script with parameters for client environment (manually configured)
 execSync(
-  `ts-node ${SCRIPTS_DIR}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack}-local-test-2 ${CLIENT_DIR} ${formattedStackName}.local`,
+  `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack}-local-test-2 ${CLIENT_DIR} ${formattedStackName}.local`,
   { stdio: 'inherit' },
 );
 
 if (includePulumiSecrets) {
   // Call the generate env script with parameters for server local environment (auto generated)
   execSync(
-    `ts-node ${SCRIPTS_DIR}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack}-test-2 ${SERVER_DIR} ${formattedStackName}`,
+    `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${serverEnvs.PROJECT_NAME}-server-${stack}-test-2 ${SERVER_DIR} ${formattedStackName}`,
     { stdio: 'inherit' },
   );
   // Call the generate env script with parameters for client local environment (auto generated)
   execSync(
-    `ts-node ${SCRIPTS_DIR}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack}-test-2 ${CLIENT_DIR} ${formattedStackName}`,
+    `ts-node ${ENV_SCRIPTS}/generateEnvFromSecret.ts ${clientEnvs.NEXT_PUBLIC_PROJECT_NAME}-client-${stack}-test-2 ${CLIENT_DIR} ${formattedStackName}`,
     { stdio: 'inherit' },
   );
 }

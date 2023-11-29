@@ -3,7 +3,7 @@ import {
   checkPulumiConfigPassphraseExists,
   deleteS3Bucket,
   deleteSecret,
-} from '../utils';
+} from './utils';
 
 console.log(
   'YOU HAVE CALLED THE DELETION SCRIPT, THIS WILL ATTEMPT TO DELETE AN ENVIRONMENT',

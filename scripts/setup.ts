@@ -1,6 +1,11 @@
 import { execSync } from 'child_process';
-import { SCRIPTS_DIR } from '../common/consts';
-import { checkPulumiConfigPassphraseExists } from '../utils';
+import {
+  AWS_SCRIPTS,
+  ENV_SCRIPTS,
+  INIT_SCRIPTS,
+  PULUMI_SCRIPTS,
+} from './common';
+import { checkPulumiConfigPassphraseExists } from './utils';
 
 console.log(
   'YOU HAVE CALLED THE SETUP SCRIPT, THIS WILL ATTEMPT TO SETUP NEW ENVIRONMENT',
@@ -33,17 +38,19 @@ console.log('');
 console.log('');
 // either extracts params from cli args, or prompts user for their manual configurations and generate .env.client.local and .env.server.local files
 execSync(
-  `ts-node ${SCRIPTS_DIR}/generateLocals.ts ${domainName} ${projectName} ${awsRegion} ${readyPlayerMeSubdomain}`,
+  `ts-node ${INIT_SCRIPTS}/generateLocals.ts ${domainName} ${projectName} ${awsRegion} ${readyPlayerMeSubdomain}`,
   { stdio: 'inherit' },
 );
 // create state buckets based on the project name and create .env.local for these bucket names
-execSync(`ts-node ${SCRIPTS_DIR}/s3StateBucketsSetup.ts`, { stdio: 'inherit' });
+execSync(`ts-node ${AWS_SCRIPTS}/s3StateBucketsSetup.ts`, { stdio: 'inherit' });
 // create pulumi config files using the .env* variables, then initiate pulumi with these config files and update .env.local with the chosen stack
-execSync(`ts-node ${SCRIPTS_DIR}/initPulumi.ts ${stack}`, { stdio: 'inherit' });
+execSync(`ts-node ${PULUMI_SCRIPTS}/initPulumi.ts ${stack}`, {
+  stdio: 'inherit',
+});
 // create secrets for these manual configurations, using the information in all created .env* files
-execSync(`ts-node ${SCRIPTS_DIR}/createSecrets.ts`, { stdio: 'inherit' });
+execSync(`ts-node ${AWS_SCRIPTS}/createSecrets.ts`, { stdio: 'inherit' });
 // generate the appropriate .env* files for the server and client directories
-execSync(`ts-node ${SCRIPTS_DIR}/generateEnvs.ts ${stack}`, {
+execSync(`ts-node ${ENV_SCRIPTS}/generateEnvs.ts ${stack}`, {
   stdio: 'inherit',
 });
 // run pulumi script to deploy shared resources
@@ -53,17 +60,17 @@ execSync(`npm run deploy:shared`, { stdio: 'inherit' });
 const formattedStackName =
   stack === 'dev' ? 'development' : stack === 'prod' ? 'production' : stack;
 
-execSync(`ts-node ${SCRIPTS_DIR}/generateEnvs.ts ${stack} true`, {
+execSync(`ts-node ${ENV_SCRIPTS}/generateEnvs.ts ${stack} true`, {
   stdio: 'inherit',
 });
 
 execSync(
-  `ts-node ${SCRIPTS_DIR}/generateDeploymentEnvs.ts client ${formattedStackName}`,
+  `ts-node ${ENV_SCRIPTS}/generateDeploymentEnvs.ts client ${formattedStackName}`,
   { stdio: 'inherit' },
 );
 
 execSync(
-  `ts-node ${SCRIPTS_DIR}/generateDeploymentEnvs.ts server ${formattedStackName}`,
+  `ts-node ${ENV_SCRIPTS}/generateDeploymentEnvs.ts server ${formattedStackName}`,
   { stdio: 'inherit' },
 );
 

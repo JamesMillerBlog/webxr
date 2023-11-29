@@ -22,7 +22,11 @@ export enum CLI_ARG {
   AWS_REGION = 5,
 }
 
-export const SCRIPTS_DIR = './wrapper/scripts';
+export const SCRIPTS_DIR = './scripts';
+export const AWS_SCRIPTS = `${SCRIPTS_DIR}/aws`;
+export const ENV_SCRIPTS = `${SCRIPTS_DIR}/env`;
+export const INIT_SCRIPTS = `${SCRIPTS_DIR}/init`;
+export const PULUMI_SCRIPTS = `${SCRIPTS_DIR}/pulumi`;
 
 export const CLIENT_DIR = 'src/client';
 export const SERVER_DIR = 'src/server';
