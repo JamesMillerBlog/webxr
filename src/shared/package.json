@@ -14,6 +14,6 @@
         "pulumi:whoami": "cd infrastructure && pulumi whoami",
         "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
         "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop",
-        "pulumi:login": "cd ../../ && ts-node ./wrapper/scripts/pulumiStackLogin.ts shared"
+        "pulumi:login": "cd ../../ && ts-node ./scripts/pulumi/pulumiStackLogin.ts shared"
     }
 }
