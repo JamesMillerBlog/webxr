@@ -46,13 +46,13 @@ jobs:
         uses: ./.github/actions/deploy-shared
         with:
           stack: ${{ inputs.stack }}
+          
+      - name: Deploy Server Resources
+        uses: ./.github/actions/deploy-server
+        with:
+          stack: ${{ inputs.stack }} 
 
       - name: Deploy Client Resources
         uses: ./.github/actions/deploy-client
         with:
           stack: ${{ inputs.stack }}
-
-      - name: Deploy Server Resources
-        uses: ./.github/actions/deploy-server
-        with:
-          stack: ${{ inputs.stack }}      

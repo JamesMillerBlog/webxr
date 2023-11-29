@@ -9,5 +9,5 @@ runs:
   using: 'composite'
   steps:
   - name: Deploy Client Infrastructure
-      shell: bash
-      run: npm run deploy:client
+    shell: bash
+    run: npm run deploy:client
