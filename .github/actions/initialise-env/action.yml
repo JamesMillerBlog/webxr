@@ -40,7 +40,7 @@ runs:
       run: npm run cd:createSecrets
     - name: Generate Shared Envs
       shell: bash
-      run: npm run cd:cd:generateEnvs ${{ inputs.stack }}
+      run: npm run cd:generateEnvs ${{ inputs.stack }}
     - name: Deploy Shared Infrastructure
       shell: bash
       run: npm run deploy:shared
