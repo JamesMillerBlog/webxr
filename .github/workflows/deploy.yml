@@ -32,8 +32,8 @@ jobs:
         shell: bash
         run: npm install
 
-      - name: Initiate Deploy Scripts
-        uses: ./.github/actions/deploy
+      - name: Initialise Environment
+        uses: ./.github/actions/initialise-env
         with:
           stack: ${{ inputs.stack }}
           domain-name: ${{ inputs.domain-name }}
@@ -41,3 +41,6 @@ jobs:
           ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
           aws-region: ${{ secrets.AWS_REGION }}
           pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+
+      # Create new yml for deploy Shared / Server / Client
+      # Declare them above

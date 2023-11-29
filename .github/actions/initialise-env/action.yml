@@ -1,4 +1,4 @@
-name: 'Deploy'
+name: 'Initialise Environment'
 description: 'Initiate the environment by generating local project stack envs'
 inputs:
   stack:
@@ -29,8 +29,12 @@ runs:
         export PULUMI_CONFIG_PASSPHRASE=${{ inputs.pulumi-config-passphrase }}
         echo "PULUMI_CONFIG_PASSPHRASE=$PULUMI_CONFIG_PASSPHRASE" >> $GITHUB_ENV
         npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.project-name }} ${{ inputs.aws-region }} ${{ inputs.ready-player-me-subdomain }}
+    - name: Setup S3 State Buckets
+      shell: bash
+      run: |
+        npm run cd:s3StateBucketsSetup
 
 
   # Rename this file to Initialise Environment
   # Fill out this until Generate Env
-  # Create new yml for deploy Shared / Server / Client
+  # see workflows/deploy.yml

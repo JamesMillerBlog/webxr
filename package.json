@@ -31,7 +31,8 @@
     "destroy:client": "npm run pulumi:down --workspace=@webxr/client",
     "destroy:server": "npm run pulumi:down --workspace=@webxr/server",
     "generate:target-envs": "ts-node ./wrapper/scripts/envs",
-    "cd:initEnvCli": "ts-node ./wrapper/scripts/initCliParams"
+    "cd:initEnvCli": "ts-node ./wrapper/scripts/initCliParams",
+    "cd:s3StateBucketsSetup": "ts-node ./wrapper/scripts/s3StateBucketsSetup"
   },
   "repository": {
     "type": "git",
