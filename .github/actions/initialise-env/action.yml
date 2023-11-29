@@ -38,3 +38,6 @@ runs:
     - name: Create Secrets
       shell: bash
       run: npm run cd:createSecrets
+    - name: Generate Shared Envs
+      shell: bash
+      run: npm run cd:generateEnvs ${{ inputs.stack }}

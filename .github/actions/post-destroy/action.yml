@@ -1,0 +1,12 @@
+name: 'Post Destroy'
+description: 'Clean up State Buckets and Secrets'
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Destroy State Buckets
+    shell: bash
+    run: npm run cd:s3StateBucketsDeletion
+  - name: Destroy Secrets
+    shell: bash
+    run: npm run cd:deleteSecrets

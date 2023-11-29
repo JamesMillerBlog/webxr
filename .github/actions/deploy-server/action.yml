@@ -1,9 +1,5 @@
 name: 'Deploy Server Resources'
 description: 'Deploy all server resources'
-inputs:
-  stack:
-    description: 'Stack Name: e.g dev'
-    required: true
 
 runs:
   using: 'composite'

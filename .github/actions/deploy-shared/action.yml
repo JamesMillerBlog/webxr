@@ -8,9 +8,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-  - name: Generate Shared Envs
-    shell: bash
-    run: npm run cd:generateEnvs ${{ inputs.stack }}
   - name: Deploy Shared Infrastructure
     shell: bash
     run: npm run deploy:shared

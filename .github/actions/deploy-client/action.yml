@@ -1,9 +1,5 @@
 name: 'Deploy Client Resources'
 description: 'Deploy all client resources'
-inputs:
-  stack:
-    description: 'Stack Name: e.g dev'
-    required: true
 
 runs:
   using: 'composite'

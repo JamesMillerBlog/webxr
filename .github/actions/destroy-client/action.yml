@@ -1,0 +1,9 @@
+name: 'Destroy Client Resources'
+description: 'Destroy all client resources'
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Destroy Client Infrastructure
+    shell: bash
+    run: npm run destroy:client

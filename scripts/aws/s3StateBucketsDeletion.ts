@@ -17,17 +17,17 @@ import {
     process.exit(1);
   }
 
-  const bucketToCreate = `${projectName}-pulumi-backend-state`;
+  const bucketToDelete = `${projectName}-pulumi-backend-state`;
 
-  const stateBucketAlreadyExist = await checkS3Exists(bucketToCreate);
+  const stateBucketAlreadyExist = await checkS3Exists(bucketToDelete);
 
-  console.log(`Will now attempt to delete ${bucketToCreate}`);
+  console.log(`Will now attempt to delete ${bucketToDelete}`);
 
   if (stateBucketAlreadyExist) {
-    console.log(`Deleting ${bucketToCreate} bucket...`);
-    deleteS3Bucket(bucketToCreate);
+    console.log(`Deleting ${bucketToDelete} bucket...`);
+    deleteS3Bucket(bucketToDelete);
   } else {
-    console.log(`State ${bucketToCreate} bucket does not exist`);
+    console.log(`State ${bucketToDelete} bucket does not exist`);
   }
   console.log('');
   console.log('');

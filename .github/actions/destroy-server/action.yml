@@ -1,0 +1,9 @@
+name: 'Destroy Server Resources'
+description: 'Destroy all server resources'
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Destroy Server Infrastructure
+    shell: bash
+    run: npm run destroy:server

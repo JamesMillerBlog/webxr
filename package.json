@@ -35,7 +35,9 @@
     "cd:s3StateBucketsSetup": "ts-node ./scripts/aws/s3StateBucketsSetup",
     "cd:initPulumi": "ts-node ./scripts/pulumi/initPulumi",
     "cd:createSecrets": "ts-node ./scripts/aws/createSecrets",
-    "cd:generateEnvs": "ts-node ./scripts/env/generateEnvs"
+    "cd:generateEnvs": "ts-node ./scripts/env/generateEnvs",
+    "cd:s3StateBucketsDeletion": "ts-node ./scripts/aws/s3StateBucketsDeletion",
+    "cd:deleteSecrets": "ts-node ./scripts/aws/deleteSecrets"
   },
   "repository": {
     "type": "git",

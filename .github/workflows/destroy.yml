@@ -1,0 +1,62 @@
+name: 'Deploy'
+
+on:
+  workflow_dispatch:
+    inputs:
+      stack:
+        default: dev
+        required: true
+      domain-name:
+        required: true
+      project-name:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Npm Install
+        shell: bash
+        run: npm install
+
+      - name: Initialise Environment
+        uses: ./.github/actions/initialise-env
+        with:
+          stack: ${{ inputs.stack }}
+          domain-name: ${{ inputs.domain-name }}
+          project-name: ${{ inputs.project-name }}
+          ready-player-me-subdomain: ${{ vars.READY_PLAYER_ME_SUBDOMAIN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          pulumi-config-passphrase: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+
+      - name: Destroy Server Resources
+        uses: ./.github/actions/destroy-server
+        with:
+          stack: ${{ inputs.stack }} 
+
+      - name: Destroy Client Resources
+        uses: ./.github/actions/destroy-client
+        with:
+          stack: ${{ inputs.stack }}
+      - name: Destroy Shared Resources
+        uses: ./.github/actions/destroy-shared
+        with:
+          stack: ${{ inputs.stack }}
+          
+      - name: Post Destroy Cleanup
+        uses: ./.github/actions/post-destroy
+
+

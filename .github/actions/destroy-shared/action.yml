@@ -1,0 +1,9 @@
+name: 'Destroy Shared Resources'
+description: 'Destroy all shared resources'
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Destroy Shared Infrastructure
+    shell: bash
+    run: npm run destroy:shared
