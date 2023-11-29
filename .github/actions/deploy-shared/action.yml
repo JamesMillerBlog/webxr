@@ -10,7 +10,7 @@ runs:
   steps:
   - name: Generate Shared Envs
       shell: bash
-      run: npm run cd:cd:generateEnvs ${{ stack }}
+      run: npm run cd:cd:generateEnvs ${{ inputs.stack }}
   - name: Deploy Shared Infrastructure
       shell: bash
       run: npm run deploy:shared

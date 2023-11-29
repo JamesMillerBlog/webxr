@@ -34,13 +34,13 @@ runs:
       run: npm run cd:s3StateBucketsSetup
     - name: Init Pulumig
       shell: bash
-      run: npm run cd:initPulumi ${{ stack }}
+      run: npm run cd:initPulumi ${{ inputs.stack }}
     - name: Create Secrets
       shell: bash
       run: npm run cd:createSecrets
     - name: Generate Shared Envs
       shell: bash
-      run: npm run cd:cd:generateEnvs ${{ stack }}
+      run: npm run cd:cd:generateEnvs ${{ inputs.stack }}
     - name: Deploy Shared Infrastructure
       shell: bash
       run: npm run deploy:shared
