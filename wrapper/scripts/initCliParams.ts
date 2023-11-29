@@ -15,7 +15,9 @@ import {
 
 const extractCliParam = (argIndex: number) => {
   const value = process.argv[argIndex];
+  console.log(value);
   const property = PROMPTS[argIndex - 2];
+  console.log(property);
   switch (argIndex) {
     case CLI_ARG.DOMAIN_NAME:
       validateDomain(value);
@@ -42,6 +44,7 @@ try {
   createEnvFileIfNotExist('.env.client.local');
   createEnvFileIfNotExist('.env.server.local');
   for (let x = 2; x < process.argv.length; x++) {
+    console.log(x);
     extractCliParam(x);
   }
   console.log('.env.client.local and .server.local are successfully created');
