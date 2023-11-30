@@ -8,7 +8,8 @@ node_modules
 dist/
 
 #environment files
-.env.local
+.env
+.env.*
 .env*.local
 
 #terraform articfact files
