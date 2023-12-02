@@ -1,6 +1,7 @@
 {
   "name": "@webxr/client",
   "private": "true",
+  "version": "0.0.2",
   "_moduleAliases": {
     "@shared": "./../shared"
   },
@@ -16,8 +17,8 @@
     "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
     "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop",
     "pulumi:login": "cd ../../ && ts-node ./scripts/pulumi/pulumiStackLogin.ts client",
-    "deploy": "npm run pulumi:login && npm run predeploy:generateEnvs && npm run build && npm run pulumi:up && npm run postdeploy:cleanUp",
-    "destroy": "npm run pulumi:login && npm run pulumi:down",
+    "deploy": "yarn pulumi:login && yarn predeploy:generateEnvs && yarn build && yarn pulumi:up && yarn postdeploy:cleanUp",
+    "destroy": "yarn pulumi:login && yarn pulumi:down",
     "predeploy:generateEnvs": "cd ../../ && ts-node ./scripts/env/generateDeploymentEnvs.ts client",
     "postdeploy:cleanUp": "cd ../../ && ts-node ./scripts/env/postDeploymentCleanup.ts client"
   },

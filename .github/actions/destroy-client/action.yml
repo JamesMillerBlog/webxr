@@ -6,4 +6,4 @@ runs:
   steps:
   - name: Destroy Client Infrastructure
     shell: bash
-    run: npm run destroy:client
+    run: yarn destroy:client

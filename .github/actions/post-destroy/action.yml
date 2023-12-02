@@ -6,7 +6,7 @@ runs:
   steps:
   - name: Destroy State Buckets
     shell: bash
-    run: npm run cd:s3StateBucketsDeletion
+    run: yarn cd:s3StateBucketsDeletion
   - name: Destroy Secrets
     shell: bash
-    run: npm run cd:deleteSecrets
+    run: yarn cd:deleteSecrets

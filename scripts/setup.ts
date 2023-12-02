@@ -54,7 +54,7 @@ execSync(`ts-node ${ENV_SCRIPTS}/generateEnvs.ts ${stack}`, {
   stdio: 'inherit',
 });
 // run pulumi script to deploy shared resources
-execSync(`npm run deploy:shared`, { stdio: 'inherit' });
+execSync(`yarn deploy:shared`, { stdio: 'inherit' });
 
 // format env name for nextjs and nestjs
 const formattedStackName =
@@ -74,5 +74,5 @@ execSync(
   { stdio: 'inherit' },
 );
 
-execSync(`npm run deploy:client`, { stdio: 'inherit' });
-execSync(`npm run deploy:server`, { stdio: 'inherit' });
+execSync(`yarn deploy:client`, { stdio: 'inherit' });
+execSync(`yarn deploy:server`, { stdio: 'inherit' });

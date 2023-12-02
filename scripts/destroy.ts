@@ -34,7 +34,7 @@ if (!stack) {
 console.log('');
 console.log('');
 
-execSync('npm run destroy:client-and-server && npm run destroy:shared', {
+execSync('yarn destroy:client-and-server && yarn destroy:shared', {
   stdio: 'inherit',
 });
 

@@ -10,7 +10,7 @@ runs:
   steps:
   - name: Deploy Shared Infrastructure
     shell: bash
-    run: npm run deploy:shared
+    run: yarn deploy:shared
   - name: Generate Client and Server Envs
     shell: bash
-    run: npm run cd:generateEnvs ${{ inputs.stack }} true
+    run: yarn cd:generateEnvs ${{ inputs.stack }} true

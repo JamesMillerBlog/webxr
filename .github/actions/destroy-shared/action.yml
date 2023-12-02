@@ -6,4 +6,4 @@ runs:
   steps:
   - name: Destroy Shared Infrastructure
     shell: bash
-    run: npm run destroy:shared
+    run: yarn destroy:shared

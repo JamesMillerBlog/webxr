@@ -6,4 +6,4 @@ runs:
   steps:
   - name: Deploy Client Infrastructure
     shell: bash
-    run: npm run deploy:client
+    run: yarn deploy:client

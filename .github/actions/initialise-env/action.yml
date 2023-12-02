@@ -28,16 +28,16 @@ runs:
       run: |
         export PULUMI_CONFIG_PASSPHRASE=${{ inputs.pulumi-config-passphrase }}
         echo "PULUMI_CONFIG_PASSPHRASE=$PULUMI_CONFIG_PASSPHRASE" >> $GITHUB_ENV
-        npm run cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.ready-player-me-subdomain }} ${{ inputs.project-name }} ${{ inputs.aws-region }}
+        yarn cd:initEnvCli ${{ inputs.domain-name }} ${{ inputs.ready-player-me-subdomain }} ${{ inputs.project-name }} ${{ inputs.aws-region }}
     - name: Setup S3 State Buckets
       shell: bash
-      run: npm run cd:s3StateBucketsSetup
+      run: yarn cd:s3StateBucketsSetup
     - name: Init Pulumi
       shell: bash
-      run: npm run cd:initPulumi ${{ inputs.stack }}
+      run: yarn cd:initPulumi ${{ inputs.stack }}
     - name: Create Secrets
       shell: bash
-      run: npm run cd:createSecrets
+      run: yarn cd:createSecrets
     - name: Generate Shared Envs
       shell: bash
-      run: npm run cd:generateEnvs ${{ inputs.stack }}
+      run: yarn cd:generateEnvs ${{ inputs.stack }}
