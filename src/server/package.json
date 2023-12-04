@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "scripts": {
     "build:nest": "nest build",
-    "build:node_modules": "rm -rf build && mkdir build && yarn --cwd ./build add @nestjs/core @nestjs/common @nestjs/config @nestjs/platform-express @nestjs/platform-ws @nestjs/websockets aws-sdk nestjs-dynamoose dynamoose reflect-metadata rxjs axios node-jose",
+    "build:node_modules": "rm -rf build && mkdir build && npm install --prefix ./build @nestjs/core @nestjs/common @nestjs/config @nestjs/platform-express @nestjs/platform-ws @nestjs/websockets aws-sdk nestjs-dynamoose dynamoose reflect-metadata rxjs axios node-jose",
     "build:all": "yarn build:nest & yarn build:node_modules",
     "format": "prettier --write \"app/**/*.ts\" \"test/**/*.ts\"",
     "start:dev": "NODE_ENV=development nest start --watch & sleep 30 && npx local-ssl-proxy --source 3002 --target 3003",
