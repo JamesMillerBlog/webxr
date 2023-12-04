@@ -1,6 +1,5 @@
 {
   "name": "@webxr/client",
-  "private": "true",
   "version": "0.0.2",
   "_moduleAliases": {
     "@shared": "./../shared"

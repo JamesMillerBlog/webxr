@@ -1,6 +1,5 @@
 {
   "name": "@webxr/server",
-  "private": "true",
   "version": "0.0.2",
   "scripts": {
     "build:nest": "nest build",

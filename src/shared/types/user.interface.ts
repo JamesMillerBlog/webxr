@@ -1,14 +1,14 @@
 export interface UserKey {
-    uid: string;
+  uid: string;
 }
 export interface User extends UserKey {
-    role: string;
-    avatar: string;
-    userMode: UserMode;
-    image: string;
+  role: string;
+  avatar: string;
+  userMode: UserMode;
+  image: string;
 }
 
 export enum UserMode {
-    AVATAR = 'avatar',
-    IMAGE = 'image',
+  AVATAR = "avatar",
+  IMAGE = "image",
 }

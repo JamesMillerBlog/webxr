@@ -1,36 +1,36 @@
 import { UserMode } from ".";
 
 export interface CoOrdinates {
-    x: number;
-    y: number;
-    z: number;
+  x: number;
+  y: number;
+  z: number;
 }
 
 export interface PositionData {
-    position: CoOrdinates;
-    rotation: CoOrdinates;
+  position: CoOrdinates;
+  rotation: CoOrdinates;
 }
 
 export interface Movement {
-    forward: boolean;
-    backward: boolean;
-    left: boolean;
-    right: boolean;
-    jump: boolean;
+  forward: boolean;
+  backward: boolean;
+  left: boolean;
+  right: boolean;
+  jump: boolean;
 }
 
 export interface Objects {
-    body: PositionData;
-    leftHand: PositionData;
-    rightHand: PositionData;
+  body: PositionData;
+  leftHand: PositionData;
+  rightHand: PositionData;
 }
 
 export interface UserPositionData extends Objects {
-    movement: Movement;
-    userMode: UserMode;
+  movement: Movement;
+  userMode: UserMode;
 }
 
 export enum PositionsType {
-    USERS = 'users',
-    OBJECTS = 'objects',
+  USERS = "users",
+  OBJECTS = "objects",
 }
