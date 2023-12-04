@@ -1,5 +1,5 @@
 import * as aws from 'aws-sdk';
-import { type SharedResources } from '../Shared';
+import { SharedResources } from '../Shared';
 import { SHARED_STACK } from './consts';
 import { REGION } from '../common';
 

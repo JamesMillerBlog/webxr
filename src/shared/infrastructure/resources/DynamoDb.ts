@@ -1,6 +1,6 @@
 import { dynamodb } from '@pulumi/aws';
-import { type Shared } from '../Shared';
-import type * as pulumi from '@pulumi/pulumi';
+import { Shared } from '../Shared';
+import * as pulumi from '@pulumi/pulumi';
 
 export class DynamoDb {
   id: pulumi.Output<string>;

@@ -2,7 +2,7 @@ import * as aws from '@pulumi/aws';
 import * as pulumi from '@pulumi/pulumi';
 import { ACM, Cognito, DynamoDb, SecretsManager } from './resources';
 import { BASE_SECRET_NAME, NAME, PROJECT_STACK, STACK } from './common';
-import { type Secrets } from './types';
+import { Secrets } from './types';
 
 export interface SharedResources {
   deploymentVersion: string | pulumi.Output<string>;

@@ -1,7 +1,7 @@
-import type * as pulumi from '@pulumi/pulumi';
+import * as pulumi from '@pulumi/pulumi';
 import * as aws from '@pulumi/aws';
-import { type CertificateValidation } from '@pulumi/aws/acm';
-import { type Shared } from '../Shared';
+import { CertificateValidation } from '@pulumi/aws/acm';
+import { Shared } from '../Shared';
 import { TEN_MINUTES, getDomainAndSubdomain } from '../common';
 
 export class ACM {

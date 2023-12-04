@@ -1,5 +1,5 @@
-import { Shared, type SharedResources } from './Shared';
-import { type Secrets } from './types';
+import { Shared, SharedResources } from './Shared';
+import { Secrets } from './types';
 import { DOMAIN } from './common';
 import * as crypto from 'crypto';
 

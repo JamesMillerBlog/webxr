@@ -1,6 +1,6 @@
 import * as aws from '@pulumi/aws';
-import { type Shared } from '../Shared';
-import type * as pulumi from '@pulumi/pulumi';
+import { Shared } from '../Shared';
+import * as pulumi from '@pulumi/pulumi';
 
 export class Cognito {
   userPoolId: pulumi.Output<string>;

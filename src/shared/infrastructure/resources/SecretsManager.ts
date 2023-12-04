@@ -1,7 +1,7 @@
 import * as pulumi from '@pulumi/pulumi';
 import * as aws from '@pulumi/aws';
-import { type Shared } from '../Shared';
-import { type ClientSecrets, type ServerSecrets } from '../types';
+import { Shared } from '../Shared';
+import { ClientSecrets, ServerSecrets } from '../types';
 
 export class SecretsManager {
   name: string;

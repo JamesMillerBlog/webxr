@@ -1,4 +1,4 @@
-import { type Output } from '@pulumi/pulumi/output';
+import { Output } from '@pulumi/pulumi/output';
 
 export interface ServerSecrets {
   COGNITO_USER_POOL_CLIENT_ID: Output<string>;
