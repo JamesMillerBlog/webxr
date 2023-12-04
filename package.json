@@ -21,7 +21,7 @@
     "deploy:all": "yarn deploy:shared && yarn deploy:client-and-server",
     "deploy:client-and-server": "yarn deploy:client && yarn deploy:server",
     "deploy:shared": "yarn workspace @webxr/shared pulumi:up",
-    "deploy:client": "yarn worksapce @webxr/client deploy",
+    "deploy:client": "yarn workspace @webxr/client deploy",
     "deploy:server": "yarn workspace @webxr/server deploy",
     "destroy:all:target-env": "ts-node ./scripts/destroy",
     "destroy:all": "yarn destroy:client && yarn destroy:server && yarn destroy:shared",
