@@ -1,10 +1,11 @@
 {
   "name": "@webxr/server",
   "private": "true",
+  "version": "0.0.2",
   "scripts": {
     "build:nest": "nest build",
-    "build:node_modules": "rm -rf build && mkdir build && npm install --prefix ./build @nestjs/core @nestjs/common @nestjs/config @nestjs/platform-express @nestjs/platform-ws @nestjs/websockets aws-sdk nestjs-dynamoose reflect-metadata rxjs axios node-jose",
-    "build:all": "npm run build:nest & npm run build:node_modules",
+    "build:node_modules": "rm -rf build && mkdir build && yarn add --prefix ./build @nestjs/core @nestjs/common @nestjs/config @nestjs/platform-express @nestjs/platform-ws @nestjs/websockets aws-sdk nestjs-dynamoose dynamoose reflect-metadata rxjs axios node-jose",
+    "build:all": "yarn build:nest & yarn build:node_modules",
     "format": "prettier --write \"app/**/*.ts\" \"test/**/*.ts\"",
     "start:dev": "NODE_ENV=development nest start --watch & sleep 30 && npx local-ssl-proxy --source 3002 --target 3003",
     "start:debug": "nest start --debug --watch",
@@ -22,8 +23,8 @@
     "pulumi:local:up": "cd infrastructure && localstack start & pulumilocal up",
     "pulumi:local:destroy": "cd infrastructure && localstack start & pulumilocal destroy && localstack stop",
     "pulumi:login": "cd ../../ && ts-node ./scripts/pulumi/pulumiStackLogin.ts server",
-    "deploy": "npm run pulumi:login && npm run predeploy:generateEnvs && npm run build:all && sleep 5 && npm run pulumi:up && npm run postdeploy:cleanUp",
-    "destroy": "npm run pulumi:login && npm run pulumi:down",
+    "deploy": "yarn pulumi:login && yarn predeploy:generateEnvs && yarn build:all && sleep 5 && yarn pulumi:up && yarn postdeploy:cleanUp",
+    "destroy": "yarn pulumi:login && yarn pulumi:down",
     "predeploy:generateEnvs": "cd ../../ && ts-node ./scripts/env/generateDeploymentEnvs.ts server",
     "postdeploy:cleanUp": "cd ../.. && ts-node ./scripts/env/postDeploymentCleanup.ts server"
   },
@@ -44,6 +45,7 @@
     "aws-sdk": "^2.1445.0",
     "axios": "^1.6.1",
     "dotenv": "^16.3.1",
+    "dynamoose": "^3.2.1",
     "nestjs-dynamoose": "^0.5.5",
     "node-jose": "^2.2.0",
     "reflect-metadata": "^0.1.13",

@@ -1,5 +1,6 @@
 {
     "name": "@webxr/shared",
+    "version": "0.0.2",
     "private": true,
     "devDependencies": {
         "@types/node": "^16"

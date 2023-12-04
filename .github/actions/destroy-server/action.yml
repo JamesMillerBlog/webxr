@@ -6,4 +6,4 @@ runs:
   steps:
   - name: Destroy Server Infrastructure
     shell: bash
-    run: npm run destroy:server
+    run: yarn destroy:server
