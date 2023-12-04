@@ -5,7 +5,8 @@ license: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 source: https://sketchfab.com/3d-models/shiba-faef9fe5ace445e7b2989d1c1ece361c
 title: Shiba
 */
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React, { ForwardRefExoticComponent, Ref, forwardRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { withCollaboration } from './withCollaboration';
@@ -14,8 +15,6 @@ import { Group } from 'three';
 
 const Model = forwardRef((props: ForwardRefExoticComponent<Ref<Group>>, group: React.ForwardedRef<Group>) => {
   const { name } = props;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const { nodes } = useGLTF('/shiba/scene.gltf')
   return (
     <group ref={group} {...props} dispose={null} name={name}>

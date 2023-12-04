@@ -51,16 +51,16 @@ export class Cognito {
       `${name}_initial_user`,
       {
         userPoolId: pool.id,
-        username: "test@test.com",
+        username: 'test@test.com',
         attributes: {
-          email: "test@test.com",
+          email: 'test@test.com',
           email_verified: 'true',
         },
         password: 'Test1234!',
       },
       { parent },
     );
-    
+
     const authenticatedRole = new aws.iam.Role(
       `${name}_auth_role`,
       {

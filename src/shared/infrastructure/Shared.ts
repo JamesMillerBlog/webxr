@@ -1,8 +1,8 @@
-import * as aws from "@pulumi/aws";
-import * as pulumi from "@pulumi/pulumi";
-import { ACM, Cognito, DynamoDb, SecretsManager } from "./resources";
-import { BASE_SECRET_NAME, NAME, PROJECT_STACK, STACK } from "./common";
-import { Secrets } from './types'
+import * as aws from '@pulumi/aws';
+import * as pulumi from '@pulumi/pulumi';
+import { ACM, Cognito, DynamoDb, SecretsManager } from './resources';
+import { BASE_SECRET_NAME, NAME, PROJECT_STACK, STACK } from './common';
+import { Secrets } from './types';
 
 export interface SharedResources {
   deploymentVersion: string | pulumi.Output<string>;
@@ -19,7 +19,7 @@ export class Shared extends pulumi.ComponentResource {
   public cognitoUserPoolArn: pulumi.Output<string> | undefined;
 
   constructor(opts?: pulumi.ResourceOptions) {
-    super("Shared", `${NAME}_shared`, {}, opts, undefined);
+    super('Shared', `${NAME}_shared`, {}, opts, undefined);
   }
 
   dynamoDb(tableName: string, primaryKeyName: string, primaryKeyType: string) {
@@ -32,25 +32,35 @@ export class Shared extends pulumi.ComponentResource {
   }
 
   cognito() {
-    return new Cognito(
-      `${PROJECT_STACK}_cognito`,
-      this,
-    )
+    return new Cognito(`${PROJECT_STACK}_cognito`, this);
   }
 
   acm(isEdge: boolean, domain: string) {
     return new ACM(NAME, aws.config.profile!, domain, isEdge, this);
   }
 
-  secretsManager(secrets:Secrets) {
+  secretsManager(secrets: Secrets) {
     return {
-      client:  new SecretsManager(`${BASE_SECRET_NAME}-client-${STACK}`, secrets.client, this),
-      server:  new SecretsManager(`${BASE_SECRET_NAME}-server-${STACK}`, secrets.server, this),
-    }
+      client: new SecretsManager(
+        `${BASE_SECRET_NAME}-client-${STACK}`,
+        secrets.client,
+        this,
+      ),
+      server: new SecretsManager(
+        `${BASE_SECRET_NAME}-server-${STACK}`,
+        secrets.server,
+        this,
+      ),
+    };
   }
 
   output(resources: SharedResources) {
-    const { deploymentVersion, edgeCertificationArn, regionalCertificateArn, cognitoUserPoolArn }= resources;
+    const {
+      deploymentVersion,
+      edgeCertificationArn,
+      regionalCertificateArn,
+      cognitoUserPoolArn,
+    } = resources;
     this.deploymentVersion = deploymentVersion;
     this.edgeCertificationArn = edgeCertificationArn;
     this.regionalCertificateArn = regionalCertificateArn;

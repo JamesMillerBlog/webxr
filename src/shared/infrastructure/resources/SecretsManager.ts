@@ -1,17 +1,29 @@
-import * as pulumi from "@pulumi/pulumi";
-import * as aws from "@pulumi/aws";
-import { Shared } from "../Shared";
-import { ClientSecrets, ServerSecrets } from '../types'
+import * as pulumi from '@pulumi/pulumi';
+import * as aws from '@pulumi/aws';
+import { Shared } from '../Shared';
+import { ClientSecrets, ServerSecrets } from '../types';
 
 export class SecretsManager {
   name: string;
-  constructor(name: string, secrets: ClientSecrets | ServerSecrets, parent: Shared) {
+  constructor(
+    name: string,
+    secrets: ClientSecrets | ServerSecrets,
+    parent: Shared,
+  ) {
     this.name = name;
-    const secret = new aws.secretsmanager.Secret(`${this.name}`, {name: this.name}, {parent});
+    const secret = new aws.secretsmanager.Secret(
+      `${this.name}`,
+      { name: this.name },
+      { parent },
+    );
 
-    new aws.secretsmanager.SecretVersion(`${name}_secrets_version`, {
+    new aws.secretsmanager.SecretVersion(
+      `${name}_secrets_version`,
+      {
         secretId: secret.id,
         secretString: pulumi.jsonStringify(secrets),
-    }, {parent});
+      },
+      { parent },
+    );
   }
 }
