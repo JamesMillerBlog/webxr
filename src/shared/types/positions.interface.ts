@@ -1,4 +1,4 @@
-import { UserMode } from ".";
+import { UserMode } from '.';
 
 export interface CoOrdinates {
   x: number;
@@ -31,6 +31,6 @@ export interface UserPositionData extends Objects {
 }
 
 export enum PositionsType {
-  USERS = "users",
-  OBJECTS = "objects",
+  USERS = 'users',
+  OBJECTS = 'objects',
 }

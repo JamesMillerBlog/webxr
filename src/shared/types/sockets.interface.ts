@@ -1,5 +1,5 @@
-import { Matrix4 } from "three";
-import { PositionsType, UserPositionData } from ".";
+import { Matrix4 } from 'three';
+import { PositionsType, UserPositionData } from '.';
 
 export interface Packet {
   type: PositionsType;

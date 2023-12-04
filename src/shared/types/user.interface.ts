@@ -9,6 +9,6 @@ export interface User extends UserKey {
 }
 
 export enum UserMode {
-  AVATAR = "avatar",
-  IMAGE = "image",
+  AVATAR = 'avatar',
+  IMAGE = 'image',
 }
