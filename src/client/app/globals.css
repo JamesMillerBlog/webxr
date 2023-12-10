@@ -1,8 +1,4 @@
-"use client";
-import { createGlobalStyle } from "styled-components";
-
-export const GlobalStyle = createGlobalStyle`
-    html {
+html {
         overflow: hidden;
     }
 
@@ -54,4 +50,3 @@ export const GlobalStyle = createGlobalStyle`
         --container-height:400px;
         --padding:20px;
       }
-`;

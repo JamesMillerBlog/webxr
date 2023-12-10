@@ -8,7 +8,11 @@ import { PositionsModule } from './positions/positions.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [`.env.${process.env.NODE_ENV}.local`],
+      envFilePath: [
+        `.env.${process.env.NODE_ENV}.local`,
+        `.env.${process.env.NODE_ENV}`,
+        `.env.local`,
+      ],
       isGlobal: true,
       load: [config],
     }),

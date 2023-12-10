@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, Ref } from 'react'
 import { useThree } from '@react-three/fiber';
 import { RayGrab, useXREvent } from '@react-three/xr';
-import { Device, Selected, deviceStore, selectedObjectStore } from '../../stores';
+import { Device, Selected, deviceStore, selectedObjectStore } from '../../webgl/stores';
 import { Matrix4, Scene, Object3D, Vector3, Group, } from 'three';
 
 type Base = React.ForwardRefExoticComponent<Ref<Group>>;

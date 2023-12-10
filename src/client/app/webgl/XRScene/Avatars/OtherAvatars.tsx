@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { extractUserData } from "./utils";
 import { AvatarController } from "./AvatarController";
-import { cognitoStore } from "../../../stores";
 import { Movement, UserMode, PositionData, UserDataPacket, User } from "@shared/types";
+import { useAuthStore } from "../../../stores";
 
 export interface UserAvatars {
   username: string;
@@ -16,7 +16,7 @@ export interface UserAvatars {
 }
 
 export const OtherAvatars = ({ avatars, allUsersHttpData, receivedSocketData }: { avatars: UserDataPacket[]; allUsersHttpData: User[]; receivedSocketData: UserDataPacket; }) => {
-  const { cognito } = cognitoStore();
+  const { auth } = useAuthStore();
   const [renderUserAvatars, setUserAvatarsToRender] = useState<UserAvatars[]>();
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const OtherAvatars = ({ avatars, allUsersHttpData, receivedSocketData }: 
     }
 
     setUserAvatarsToRender(formattedAvatars);
-  }, [cognito.username, allUsersHttpData, avatars, receivedSocketData]);
+  }, [auth.username, allUsersHttpData, avatars, receivedSocketData]);
 
   return (
     <>

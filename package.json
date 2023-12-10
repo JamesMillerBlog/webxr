@@ -9,14 +9,16 @@
     "src/server"
   ],
   "dependencies": {
-    "@pulumi/aws": "^5.0.0",
-    "@pulumi/pulumi": "^3.0.0",
-    "bufferutil": "^4.0.7",
+    "@pulumi/aws": "^6.13.1",
+    "@pulumi/pulumi": "^3.95.0",
+    "bufferutil": "^4.0.8",
     "ts-node": "^10.9.1",
-    "utf-8-validate": "^5.0.10"
+    "utf-8-validate": "^6.0.3"
   },
   "scripts": {
     "dev": "yarn workspace @webxr/client start:dev & yarn workspace @webxr/server start:dev",
+    "setup": "ts-node ./scripts/setup dev localhost-project-init",
+    "shutdown": "ts-node ./scripts/destroy",
     "deploy:all:target-env": "ts-node ./scripts/setup",
     "deploy:all": "yarn deploy:shared && yarn deploy:client-and-server",
     "deploy:client-and-server": "yarn deploy:client && yarn deploy:server",
@@ -59,7 +61,7 @@
     "husky": "^8.0.0",
     "pinst": "^3.0.0",
     "prettier": "^3.1.0",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   },
   "packageManager": "yarn@4.0.2"
 }

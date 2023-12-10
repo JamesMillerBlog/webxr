@@ -1,5 +1,5 @@
-name: whoa-server
+name: test-2-server
 runtime: nodejs
 description: Cloud infrastructure for the server stack
 backend:
-  url: s3://whoa-pulumi-backend-state
+  url: s3://test-2-pulumi-backend-state

@@ -39,6 +39,5 @@ Model.displayName = 'Shiba';
 
 useGLTF.preload('/shiba/scene.gltf')
 
-
 const InteractiveModel = withXrInteractivity(Model);
 export const Shiba = withCollaboration(InteractiveModel);

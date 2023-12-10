@@ -1,11 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { cognitoStore, avatarStore, SignIn } from "../stores";
+import { avatarStore } from "../webgl/stores";
+import { SignInState, useAuthStore } from "../stores";
 import { UserMode } from "@shared/types";
 
 export default function Header() {
-  const { setSignInState } = cognitoStore();
+  const { updateSignInStatus } = useAuthStore().actions;
   const { showIFrame, setShowIFrame, setUserMode } = avatarStore();
+
+  const signOut = () => {
+    const auth = { jwt: undefined, username: undefined };
+    const signInState = SignInState.SIGN_OUT;
+
+    updateSignInStatus({ auth, signInState })
+  }
+
   return (
     <Nav>
       <AvatarToggleBtn
@@ -25,9 +34,7 @@ export default function Header() {
           Select Image
         </SelectImageBtn>
       )}
-      <SignoutBtn onClick={() => {
-        setSignInState(SignIn.SIGN_OUT);
-      }}>
+      <SignoutBtn onClick={signOut}>
         Log out
       </SignoutBtn>
     </Nav>

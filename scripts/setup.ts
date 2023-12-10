@@ -29,16 +29,12 @@ if (!stack) {
   );
   process.exit(1);
 }
-const domainName = process.argv[3];
-const projectName = process.argv[4];
-const awsRegion = process.argv[5];
-const readyPlayerMeSubdomain = process.argv[6];
 
 console.log('');
 console.log('');
 // either extracts params from cli args, or prompts user for their manual configurations and generate .env.client.local and .env.server.local files
 execSync(
-  `ts-node ${INIT_SCRIPTS}/generateLocals.ts ${domainName} ${projectName} ${awsRegion} ${readyPlayerMeSubdomain}`,
+  `ts-node ${INIT_SCRIPTS}/generateLocals.ts ${process.argv[3]} ${process.argv[4]} ${process.argv[5]} ${process.argv[6]}`,
   { stdio: 'inherit' },
 );
 // create state buckets based on the project name and create .env.local for these bucket names
@@ -74,5 +70,7 @@ execSync(
   { stdio: 'inherit' },
 );
 
-execSync(`yarn deploy:client`, { stdio: 'inherit' });
-execSync(`yarn deploy:server`, { stdio: 'inherit' });
+if (process.argv[3] !== 'localhost-project-init') {
+  execSync(`yarn deploy:client`, { stdio: 'inherit' });
+  execSync(`yarn deploy:server`, { stdio: 'inherit' });
+}

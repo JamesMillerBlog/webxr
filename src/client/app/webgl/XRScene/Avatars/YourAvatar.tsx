@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { AvatarController } from "./AvatarController";
 import { useController } from "@react-three/xr";
-import { Device, deviceStore, movementStore, positionsStore } from "../../../stores";
+import { Device, deviceStore, movementStore, positionsStore } from "../../../webgl/stores";
 import { Objects } from "@shared/types";
 
 export const YourAvatar = (props) => {
