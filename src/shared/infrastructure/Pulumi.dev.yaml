@@ -1,6 +1,6 @@
-encryptionsalt: v1:k6Pc9i79/B4=:v1:GUwoDBiDCdFUVKle:onhJ+msywUptdywU9En/COxLX0sd2w==
+encryptionsalt: v1:DHb/GPoPAW0=:v1:7FX3gkfRcGXtGgUt:9ka42iCXGHNdFcMgh6vEaT0U0H1vMQ==
 config:
   aws:region: eu-west-2
-  whoa-shared:projectSharedResources: whoa-shared
-  whoa-shared:region: eu-west-2
-  whoa-shared:targetDomain: test.newpilot.app
+  test-2-shared:projectSharedResources: test-2-shared
+  test-2-shared:region: eu-west-2
+  test-2-shared:targetDomain: test.newpilot.app

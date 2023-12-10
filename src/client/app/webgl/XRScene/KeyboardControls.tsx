@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useEffect } from "react";
-import { movementStore } from "../../stores";
+import { movementStore } from "../../webgl/stores";
 
 export const KeyboardControls = (props: { children: ReactNode; }) => {
   const { movement, setMovement } = movementStore();

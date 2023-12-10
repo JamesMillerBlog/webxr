@@ -1,5 +1,5 @@
-name: whoa-shared
+name: test-2-shared
 runtime: nodejs
 description: Cloud infrastructure shared across the stack
 backend:
-  url: s3://whoa-pulumi-backend-state
+  url: s3://test-2-pulumi-backend-state

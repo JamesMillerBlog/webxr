@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { avatarStore } from "../stores";
+import { avatarStore } from "../webgl/stores";
 import { READY_PLAYER_ME } from "../common";
 import { UserMode } from "@shared/types";
 

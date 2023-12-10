@@ -3,6 +3,7 @@ import {
   checkPulumiConfigPassphraseExists,
   deleteS3Bucket,
   deleteSecret,
+  loadEnvVariables,
 } from './utils';
 
 console.log(
@@ -10,6 +11,11 @@ console.log(
 );
 
 console.log('');
+
+loadEnvVariables('.env.client.local');
+loadEnvVariables('.env.server.local');
+loadEnvVariables('.env.local');
+
 const pulumiConfigPassphraseExists = checkPulumiConfigPassphraseExists();
 if (!pulumiConfigPassphraseExists) {
   console.error(
@@ -20,14 +26,14 @@ if (!pulumiConfigPassphraseExists) {
   process.exit(1);
 }
 
-const projectName = process.argv[2];
-if (!projectName) {
+const projectName = process.argv[2] ?? process.env.PROJECT_NAME;
+if (!projectName || projectName === 'undefined') {
   console.error('NO ARGUMENT FOR DELETING THE PROJECT NAME WAS PROVIDED');
   process.exit(1);
 }
 
-const stack = process.argv[3];
-if (!stack) {
+const stack = process.argv[3] ?? process.env.STACK;
+if (!stack || stack === 'undefined') {
   console.error('NO ARGUMENT FOR DELETING THE STACK WAS PROVIDED (e.g dev)');
   process.exit(1);
 }

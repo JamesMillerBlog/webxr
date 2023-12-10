@@ -1,6 +1,6 @@
 import { useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { Device, deviceStore } from "../../../stores";
+import { Device, deviceStore } from "../../../webgl/stores";
 
 export const AvatarModel = (props) => {
   const { animations, model, body, movement } = props;

@@ -1,6 +1,6 @@
 import { useThree } from "@react-three/fiber";
 import React, { useRef, useEffect } from "react";
-import { Device, deviceStore } from "../../stores";
+import { Device, deviceStore } from "../../webgl/stores";
 
 export const Camera = (props) => {
   const ref = useRef();

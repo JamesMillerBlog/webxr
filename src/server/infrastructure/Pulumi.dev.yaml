@@ -1,6 +1,6 @@
-encryptionsalt: v1:+5dmPpF9P/0=:v1:tWzdCgjx+EZS7vuV:kQqff9O+0iZOSAp9jrmVby5b4uclnw==
+encryptionsalt: v1:YWHOn0BxvK4=:v1:rtgZFz4fNlFABII4:QEP5210es9rd5RjYJ08LZYdPNRxYTg==
 config:
   aws:region: eu-west-2
-  whoa-server:projectSharedResources: whoa-shared
-  whoa-server:region: eu-west-2
-  whoa-server:targetDomain: test.newpilot.app
+  test-2-server:projectSharedResources: test-2-shared
+  test-2-server:region: eu-west-2
+  test-2-server:targetDomain: test.newpilot.app

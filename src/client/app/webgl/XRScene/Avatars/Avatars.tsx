@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { YourAvatar } from "./YourAvatar";
-import { cognitoStore, avatarStore, socketStore } from "../../../stores";
+import { avatarStore } from "../../../webgl/stores";
+import { useAuthStore, useSocketStore } from "../../../stores";
 import { findCurrentUser } from "./utils";
 import { getAllUsersData } from "../../../common";
 import { OtherAvatars } from "./OtherAvatars";
@@ -14,30 +15,32 @@ export interface ActiveAvatar {
 }
 
 export const Avatars = () => {
-    const { cognito } = cognitoStore();
+    const { auth } = useAuthStore();
     const { userMode, avatar, otherUserAvatars, setOtherUserAvatars } = avatarStore();
     const [activeUserAvatar, setActiveUserAvatar] = useState<ActiveAvatar>();
-    const { receivedSocketData } = socketStore();
+    const { receivedSocketData } = useSocketStore();
     const [allUsersHttpData, setAllUsersHttpData] = useState<User[]>();
 
     const setupActiveUser = useCallback((allUsers: User[]) => {
-        if (cognito && userMode) {
-            const currentUser = allUsers.find(user => findCurrentUser(user, cognito.username))
+        if (auth && userMode) {
+
+            const currentUser = allUsers.find(user => findCurrentUser(user, auth.username))
+
             const activeAvatar: ActiveAvatar = {
-                username: cognito.username,
+                username: auth.username,
                 image: currentUser.image,
                 avatar,
                 userMode: userMode,
             };
             setActiveUserAvatar(activeAvatar);
         }
-    }, [cognito, userMode, avatar])
+    }, [auth, userMode, avatar])
 
     const setupUsers = useCallback(async () => {
-        const data = await getAllUsersData(cognito);
+        const data = await getAllUsersData(auth);
         setupActiveUser(data)
         setAllUsersHttpData(data);
-    }, [cognito, setupActiveUser]);
+    }, [auth, setupActiveUser]);
 
     useEffect(() => {
         setupUsers()
@@ -80,7 +83,7 @@ export const Avatars = () => {
             <>
                 {activeUserAvatar && (
                     <YourAvatar
-                        username={cognito.username}
+                        username={auth.username}
                         image={activeUserAvatar.image}
                         userMode={activeUserAvatar.userMode}
                         avatar={activeUserAvatar.avatar}

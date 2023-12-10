@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.6",
-    "@pulumi/aws": "^5.0.0",
-    "@pulumi/awsx": "^1.0.0",
-    "@pulumi/pulumi": "^3.0.0",
+    "@pulumi/aws": "^6.13.1",
+    "@pulumi/aws-apigateway": "^2.1.0",
+    "@pulumi/pulumi": "^3.95.0",
     "@pulumi/synced-folder": "^0.11.1",
     "@react-three/drei": "^9.80.0",
     "@react-three/fiber": "^8.13.6",
@@ -36,13 +36,12 @@
     "babel-plugin-styled-components": "^2.1.4",
     "mime": "^3.0.0",
     "module-alias": "^2.2.3",
-    "next": "latest",
+    "next": "^14.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-use-websocket": "^4.3.1",
-    "styled-components": "^6.0.5",
-    "three": "^0.155.0",
-    "zustand": "^4.3.9"
+    "styled-components": "^6.1.1",
+    "three": "^0.159.0",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/node": "^18.11.5",
