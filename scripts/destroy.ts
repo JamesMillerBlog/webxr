@@ -40,7 +40,7 @@ if (!stack || stack === 'undefined') {
 console.log('');
 console.log('');
 
-execSync('yarn destroy:client-and-server && yarn destroy:shared', {
+execSync('yarn destroy:apps && yarn destroy:shared', {
   stdio: 'inherit',
 });
 

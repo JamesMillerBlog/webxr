@@ -6,8 +6,8 @@ import {
   Route53,
   RestLambda,
   WebsocketLambda,
-  Endpoint,
   Route,
+  Resources,
 } from './resources';
 
 export class Server extends pulumi.ComponentResource {
@@ -16,7 +16,7 @@ export class Server extends pulumi.ComponentResource {
   }
 
   restApiGateway(
-    endpoints: Endpoint[],
+    resources: Resources[],
     edgeCertificationArn: string,
     cognitoUserPoolArn: string,
     deploymentVersion: string,
@@ -24,7 +24,7 @@ export class Server extends pulumi.ComponentResource {
     return new RestApiGateway(
       this,
       `${PROJECT_STACK}_rest_api`,
-      endpoints,
+      resources,
       edgeCertificationArn,
       cognitoUserPoolArn,
       deploymentVersion,

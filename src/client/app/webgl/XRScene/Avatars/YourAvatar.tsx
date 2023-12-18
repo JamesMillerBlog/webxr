@@ -122,11 +122,13 @@ export const YourAvatar = (props) => {
     } else {
       let moveSpeed = 0;
       camera.position.setFromMatrixPosition(userCamera.current.matrixWorld);
-
-      if (forward && !left && !right) moveSpeed += 0.2;
-      else if (forward && (left || right)) moveSpeed += 0.1;
-      else if (backward && !left && !right) moveSpeed += -0.2;
-      else if (backward && (left || right)) moveSpeed += -0.1;
+      const fastSpeed = 0.1;
+      const slowSpeed = fastSpeed / 2;
+      
+      if (forward && !left && !right) moveSpeed += fastSpeed;
+      else if (forward && (left || right)) moveSpeed += slowSpeed;
+      else if (backward && !left && !right) moveSpeed += -fastSpeed;
+      else if (backward && (left || right)) moveSpeed += -slowSpeed;
 
       if (left) userAvatar.current.rotation.y += 0.05
       else if (right) userAvatar.current.rotation.y -= 0.05
@@ -163,6 +165,7 @@ export const YourAvatar = (props) => {
           <group ref={userAvatar}>
             <AvatarController
               key={username}
+              username={username}
               image={image}
               activeUser={true}
               avatar={avatar}

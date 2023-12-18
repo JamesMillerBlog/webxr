@@ -6,13 +6,15 @@ export default (): ConfigObject => {
   const domainName = process.env.DOMAIN_NAME;
   const connectionsTableId = process.env.CONNECTIONS_TABLE_ID;
   const userTableId = process.env.USER_TABLE_ID;
+  const chimeTableId = process.env.CHIME_TABLE_ID;
 
   if (
     !userPoolId ||
     !region ||
     !domainName ||
     !connectionsTableId ||
-    !userTableId
+    !userTableId ||
+    !chimeTableId
   ) {
     throw new Error('Required ENVS not provided');
   }
@@ -23,5 +25,6 @@ export default (): ConfigObject => {
     domainName,
     connectionsTableId,
     userTableId,
+    chimeTableId,
   };
 };

@@ -16,6 +16,7 @@ export const AvatarController = (props) => {
   if (props.userMode === UserMode.IMAGE || props.vr && props.activeUser) {
     return (
       <Avatar2D
+        username={props.username}
         body={body}
         image={props.image}
       />

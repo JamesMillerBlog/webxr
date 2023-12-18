@@ -1,5 +1,5 @@
-import React, { ReactNode, useCallback, useEffect, useState } from "react";
-import { ARButton, Controllers, VRButton } from "@react-three/xr";
+import React, { ReactNode, useState } from "react";
+import { Controllers } from "@react-three/xr";
 import { useSocketStore } from "../../stores";
 import { Device, deviceStore } from "../../webgl/stores";
 import { useFrame } from "@react-three/fiber";
@@ -7,19 +7,12 @@ import { Avatars } from "./Avatars";
 import { KeyboardControls } from "./KeyboardControls";
 import { Camera } from "./Camera";
 import { XR } from "@react-three/xr";
-import { DEVICE } from "../../consts";
 
 export const XRScene = ({ children }: { children: ReactNode; }) => {
-    const { device, setDevice } = deviceStore();
     const { isConnected, actions } = useSocketStore();
+    const { device } = deviceStore();
 
     const [frames, setFrames] = useState(0);
-
-    const configureDevice = useCallback(async () => setDevice(await DEVICE), [setDevice]);
-
-    useEffect(() => {
-        configureDevice();
-    }, [configureDevice]);
 
     useFrame(() => {
         if (!isConnected) return
@@ -30,8 +23,6 @@ export const XRScene = ({ children }: { children: ReactNode; }) => {
 
     return (
         <>
-            {device === Device.WEB_AR && <ARButton />}
-            {device === Device.WEB_VR && <VRButton />}
             <XR referenceSpace="local">
                 <Avatars />
                 {device != undefined && device === Device.WEB && (

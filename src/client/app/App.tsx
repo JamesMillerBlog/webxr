@@ -5,6 +5,7 @@ import React, { ReactNode } from "react";
 import { SignInProvider } from "./providers/SignIn";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Sockets } from "./providers/Sockets";
+import ChimeProvider from "./providers/Chime";
 
 export const App = (props: { children: ReactNode; }) => {
     const { children } = props;
@@ -12,7 +13,9 @@ export const App = (props: { children: ReactNode; }) => {
         <Authenticator.Provider>
             <SignInProvider>
                 <Sockets>
-                    {children}
+                    <ChimeProvider>
+                        {children}
+                    </ChimeProvider>
                 </Sockets>
             </SignInProvider>
         </Authenticator.Provider>

@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import config from './common/config';
 import { UserModule } from './users/users.module';
 import { PositionsModule } from './positions/positions.module';
+import { ChimeModule } from './chime/chime.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PositionsModule } from './positions/positions.module';
     DynamooseModule.forRoot(),
     UserModule,
     PositionsModule,
+    ChimeModule,
   ],
   controllers: [],
   providers: [],

@@ -3,21 +3,26 @@ import * as pulumi from '@pulumi/pulumi';
 import { Server } from '../Server';
 import { DOMAIN, STACK } from '../../../shared/infrastructure/common';
 import { DomainName, Resource, RestApi } from '@pulumi/aws/apigateway';
-import { Endpoint } from './RestLambda';
+import { Endpoint, Resources } from './RestLambda';
 import { Authorizer } from '@pulumi/aws/apigateway/authorizer';
+
+export interface LambdaResource {
+  resource: Resource;
+  wildCardResource: Resource;
+  endpoints: Endpoint[];
+  path: string;
+}
 
 export class RestApiGateway {
   domainName: DomainName;
   name: string;
   parent: Server;
   restApi: RestApi;
-  resource: Resource;
-  wildCardResource: Resource;
 
   constructor(
     parent: Server,
     name: string,
-    endpoints: Endpoint[],
+    resources: Resources[],
     edgeCertificationArn: string,
     cognitoUserPoolArn: string,
     deploymentVersion: string,
@@ -32,26 +37,6 @@ export class RestApiGateway {
         name: `api.${DOMAIN}`,
       },
       { parent },
-    );
-
-    this.resource = new aws.apigateway.Resource(
-      `${name}_resource`,
-      {
-        restApi: this.restApi.id,
-        parentId: this.restApi.rootResourceId,
-        pathPart: 'user',
-      },
-      { parent },
-    );
-
-    this.wildCardResource = new aws.apigateway.Resource(
-      `${name}_wildcardResource`,
-      {
-        restApi: this.restApi.id,
-        parentId: this.resource.id,
-        pathPart: '{uid+}',
-      },
-      { dependsOn: [this.resource], parent },
     );
 
     this.domainName = new aws.apigateway.DomainName(
@@ -78,7 +63,15 @@ export class RestApiGateway {
       },
     );
 
-    const lambdaMethods = this.setupMethods(endpoints, cognitoAuthorizer);
+    const lambdaResources: LambdaResource[] = this.setupResources(
+      name,
+      resources,
+    );
+
+    const lambdaIntegrations = this.setupEndpoints(
+      lambdaResources,
+      cognitoAuthorizer,
+    );
 
     const gateway4xxStatusCodes = [];
     for (let i = 400; i < 431; i++) gateway4xxStatusCodes.push(String(i));
@@ -102,7 +95,7 @@ export class RestApiGateway {
       },
     );
 
-    const deploymentDeps = [...lambdaMethods, ...gateway4xxResponses];
+    const deploymentDeps = [...lambdaIntegrations, ...gateway4xxResponses];
 
     const deployment = new aws.apigateway.Deployment(
       `${name}_deployment`,
@@ -131,21 +124,22 @@ export class RestApiGateway {
     );
   }
 
-  setupMethods(endpoints: Endpoint[], cognitoAuthorizer: Authorizer) {
-    const deploymentDeps: pulumi.Input<pulumi.Resource>[] = [];
-
-    for (let x = 0; x < endpoints.length; x++) {
-      const { method, handler, pathParams, authorizer } = endpoints[x];
-
-      const resourceId = pathParams
-        ? this.wildCardResource.id
-        : this.resource.id;
+  setupMethods(
+    endpoints: Endpoint[],
+    wildCardResource: Resource,
+    resource: Resource,
+    cognitoAuthorizer: Authorizer,
+    path: string,
+  ) {
+    return endpoints.map(({ method, handler, pathParams, authorizer }) => {
+      const selectedResource = pathParams ? wildCardResource : resource;
+      const resourceId = selectedResource.id;
 
       const permission = pathParams ? '/*/*/*' : '/*/*';
 
       const lambdaName = pathParams
-        ? `${this.name}_${method}_path_params`
-        : `${this.name}_${method}`;
+        ? `${this.name}_${method}_${path}_path_params`
+        : `${this.name}_${method}_${path}`;
 
       const apiMethod = new aws.apigateway.Method(
         `${lambdaName}_method`,
@@ -157,7 +151,7 @@ export class RestApiGateway {
           authorizerId: authorizer ? cognitoAuthorizer.id : undefined,
         },
         {
-          dependsOn: [this.restApi, this.resource, this.wildCardResource],
+          dependsOn: [this.restApi, resource, wildCardResource],
           parent: this.parent,
         },
       );
@@ -224,8 +218,65 @@ export class RestApiGateway {
         },
         { parent: this.parent, dependsOn: [integration, methodResponse] },
       );
-      deploymentDeps.push(integration);
+
+      return integration;
+    });
+  }
+
+  setupEndpoints(
+    lambdaResources: LambdaResource[],
+    cognitoAuthorizer: Authorizer,
+  ) {
+    const deploymentDeps: pulumi.Input<pulumi.Resource>[] = [];
+
+    for (const {
+      endpoints,
+      resource,
+      wildCardResource,
+      path,
+    } of lambdaResources) {
+      const methods = this.setupMethods(
+        endpoints,
+        wildCardResource,
+        resource,
+        cognitoAuthorizer,
+        path,
+      );
+      methods.forEach((method) => deploymentDeps.push(method));
     }
+
     return deploymentDeps;
+  }
+
+  setupResources(name: string, resources: Resources[]) {
+    return resources.map(({ path, endpoints }) => {
+      const resourcePath = path.includes('/') ? path.replace('/', '_') : path;
+      const resource = new aws.apigateway.Resource(
+        `${name}_${resourcePath}_resource`,
+        {
+          restApi: this.restApi.id,
+          parentId: this.restApi.rootResourceId,
+          pathPart: path,
+        },
+        { parent: this.parent },
+      );
+
+      const wildCardResource = new aws.apigateway.Resource(
+        `${name}_${resourcePath}_wildcardResource`,
+        {
+          restApi: this.restApi.id,
+          parentId: resource.id,
+          pathPart: '{uid+}',
+        },
+        { dependsOn: [resource], parent: this.parent },
+      );
+
+      return {
+        resource,
+        wildCardResource,
+        endpoints,
+        path: resourcePath,
+      };
+    });
   }
 }

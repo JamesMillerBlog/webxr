@@ -5,6 +5,7 @@ export interface ServerSecrets {
   COGNITO_USER_POOL_ID: Output<string>;
   CONNECTIONS_TABLE_ID: Output<string>;
   USER_TABLE_ID: Output<string>;
+  CHIME_TABLE_ID: Output<string>;
 }
 
 export interface ClientSecrets {

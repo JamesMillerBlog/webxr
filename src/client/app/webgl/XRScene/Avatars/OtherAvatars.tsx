@@ -65,6 +65,7 @@ export const OtherAvatars = ({ avatars, allUsersHttpData, receivedSocketData }: 
               leftHand={leftHand}
               rightHand={rightHand}
               key={username}
+              username={username}
               image={image}
               avatar={avatar}
               userMode={userMode}

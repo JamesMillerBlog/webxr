@@ -1,5 +1,5 @@
-name: test-2-client
+name: whoa-test-2-client
 runtime: nodejs
 description: Cloud infrastructure for the client stack
 backend:
-  url: s3://test-2-pulumi-backend-state
+  url: s3://whoa-test-2-pulumi-backend-state

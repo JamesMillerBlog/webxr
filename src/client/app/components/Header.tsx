@@ -4,9 +4,11 @@ import { avatarStore } from "../webgl/stores";
 import { SignInState, useAuthStore } from "../stores";
 import { UserMode } from "@shared/types";
 
+
 export default function Header() {
   const { updateSignInStatus } = useAuthStore().actions;
   const { showIFrame, setShowIFrame, setUserMode } = avatarStore();
+  // const {actions} = chimeStore()
 
   const signOut = () => {
     const auth = { jwt: undefined, username: undefined };
@@ -34,6 +36,8 @@ export default function Header() {
           Select Image
         </SelectImageBtn>
       )}
+
+      {/* <ActivateWebcam onClick={() => actions.activateChime(true)}>Activate Webcam</ActivateWebcam> */}
       <SignoutBtn onClick={signOut}>
         Log out
       </SignoutBtn>
@@ -52,6 +56,17 @@ const Nav = styled.nav`
   padding-top: 0px;
   z-index: 1;
 `;
+
+// const ActivateWebcam = styled.button`
+//   font-size: 16px;
+//   text-decoration: none;
+//   &:hover {
+//     background: none;
+//   }
+//   cursor: pointer;
+//   color: white;
+//   background-color: grey;
+// `;
 
 const SignoutBtn = styled.button`
   font-size: 16px;
