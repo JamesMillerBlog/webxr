@@ -5,7 +5,7 @@
     "@shared": "./../shared"
   },
   "scripts": {
-    "start:dev": "NODE_ENV=development NEXT_PUBLIC_LOCAL_IP_ADDRESS=localhost next dev -p 3001 & npx local-ssl-proxy --source 3000 --target 3001",
+    "start:dev": "NODE_ENV=development NEXT_PUBLIC_LOCAL_IP_ADDRESS=$(node -e \"console.log(require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[1]].find(entry => entry.family === 'IPv4').address)\") next dev -p 3001 & npx local-ssl-proxy --source 3000 --target 3001",
     "build": "next build && tsc",
     "lint": "next lint . --ext ts --ext tsx --ext js",
     "lint-and-fix": "next lint . --ext ts --ext tsx --ext js --fix",
