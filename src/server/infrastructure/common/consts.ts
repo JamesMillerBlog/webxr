@@ -10,5 +10,6 @@ export const ENV = {
     CONNECTIONS_TABLE_ID: String(process.env.CONNECTIONS_TABLE_ID),
     USER_TABLE_ID: String(process.env.USER_TABLE_ID),
     DOMAIN_NAME: String(process.env.DOMAIN_NAME),
+    CHIME_TABLE_ID: String(process.env.CHIME_TABLE_ID),
   },
 };

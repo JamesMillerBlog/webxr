@@ -11,6 +11,7 @@ const edgeCert = shared.acm(true, DOMAIN);
 const regionalCert = shared.acm(false, `ws.${DOMAIN}`);
 
 const usersTable = shared.dynamoDb('users_table', 'uid', 'S');
+const chimeTable = shared.dynamoDb('chime_table', 'meetingId', 'S');
 const connectionsTable = shared.dynamoDb(
   'connections_table',
   'connectionId',
@@ -29,6 +30,7 @@ const secrets: Secrets = {
     COGNITO_USER_POOL_ID: cognito.userPoolId,
     CONNECTIONS_TABLE_ID: connectionsTable.id,
     USER_TABLE_ID: usersTable.id,
+    CHIME_TABLE_ID: chimeTable.id,
   },
 };
 

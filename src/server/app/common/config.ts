@@ -1,11 +1,30 @@
 import { ConfigObject } from '@nestjs/config';
 
 export default (): ConfigObject => {
+  const userPoolId = process.env.COGNITO_USER_POOL_ID;
+  const region = process.env.AWS_REGION;
+  const domainName = process.env.DOMAIN_NAME;
+  const connectionsTableId = process.env.CONNECTIONS_TABLE_ID;
+  const userTableId = process.env.USER_TABLE_ID;
+  const chimeTableId = process.env.CHIME_TABLE_ID;
+
+  if (
+    !userPoolId ||
+    !region ||
+    !domainName ||
+    !connectionsTableId ||
+    !userTableId ||
+    !chimeTableId
+  ) {
+    throw new Error('Required ENVS not provided');
+  }
+
   return {
-    userPoolId: String(process.env.COGNITO_USER_POOL_ID),
-    region: String(process.env.AWS_REGION),
-    domainName: String(process.env.DOMAIN_NAME),
-    connectionsTableId: String(process.env.CONNECTIONS_TABLE_ID),
-    userTableId: String(process.env.USER_TABLE_ID),
+    userPoolId,
+    region,
+    domainName,
+    connectionsTableId,
+    userTableId,
+    chimeTableId,
   };
 };

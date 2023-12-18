@@ -1,5 +1,5 @@
 "use client";
-import { Device } from "../stores";
+import { Device } from "../webgl/stores";
 import { DOMAIN_NAME, IS_LOCAL } from "./consts";
 
 export const checkDevice = async () => {

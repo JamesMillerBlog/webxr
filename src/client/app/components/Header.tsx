@@ -1,11 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import { cognitoStore, avatarStore, SignIn } from "../stores";
+import { avatarStore } from "../webgl/stores";
+import { SignInState, useAuthStore } from "../stores";
 import { UserMode } from "@shared/types";
 
+
 export default function Header() {
-  const { setSignInState } = cognitoStore();
+  const { updateSignInStatus } = useAuthStore().actions;
   const { showIFrame, setShowIFrame, setUserMode } = avatarStore();
+  // const {actions} = chimeStore()
+
+  const signOut = () => {
+    const auth = { jwt: undefined, username: undefined };
+    const signInState = SignInState.SIGN_OUT;
+
+    updateSignInStatus({ auth, signInState })
+  }
+
   return (
     <Nav>
       <AvatarToggleBtn
@@ -25,9 +36,9 @@ export default function Header() {
           Select Image
         </SelectImageBtn>
       )}
-      <SignoutBtn onClick={() => {
-        setSignInState(SignIn.SIGN_OUT);
-      }}>
+
+      {/* <ActivateWebcam onClick={() => actions.activateChime(true)}>Activate Webcam</ActivateWebcam> */}
+      <SignoutBtn onClick={signOut}>
         Log out
       </SignoutBtn>
     </Nav>
@@ -45,6 +56,17 @@ const Nav = styled.nav`
   padding-top: 0px;
   z-index: 1;
 `;
+
+// const ActivateWebcam = styled.button`
+//   font-size: 16px;
+//   text-decoration: none;
+//   &:hover {
+//     background: none;
+//   }
+//   cursor: pointer;
+//   color: white;
+//   background-color: grey;
+// `;
 
 const SignoutBtn = styled.button`
   font-size: 16px;

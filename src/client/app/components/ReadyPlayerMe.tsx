@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { avatarStore } from "../stores";
+import { avatarStore } from "../webgl/stores";
 import { READY_PLAYER_ME } from "../common";
 import { UserMode } from "@shared/types";
 
@@ -63,22 +63,26 @@ export default function RpmPopUp() {
         }
     }
 
-    return (
-        <AppIframe>
-            <iframe
-                allow="camera *; microphone *"
-                className="iFrame"
-                id="frame"
-                width="100%"
-                height="90%"
-                ref={iFrameRef}
-                style={{
-                    display: `${showIFrame ? "block" : "none"}`,
-                }}
-                title={"Ready Player Me"}
-            />
-        </AppIframe>
-    );
+
+    if(showIFrame) {
+        return (
+            <AppIframe>
+                <iframe
+                    allow="camera *; microphone *"
+                    className="iFrame"
+                    id="frame"
+                    width="100%"
+                    height="90%"
+                    ref={iFrameRef}
+                    style={{
+                        display: `${showIFrame ? "block" : "none"}`,
+                    }}
+                    title={"Ready Player Me"}
+                />
+            </AppIframe>
+        );
+    }
+    return null;
 }
 
 function parse(event) {
@@ -91,5 +95,5 @@ function parse(event) {
 
 const AppIframe = styled("div")`
   width: 100%;
-  height: 100%;
+  height: 100vh;
 `;

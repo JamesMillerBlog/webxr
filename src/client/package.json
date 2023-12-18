@@ -5,7 +5,7 @@
     "@shared": "./../shared"
   },
   "scripts": {
-    "start:dev": "NODE_ENV=development NEXT_PUBLIC_LOCAL_IP_ADDRESS=$(node -e \"console.log(require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[1]].find(entry => entry.family === 'IPv4').address)\") next dev -p 3001 & npx local-ssl-proxy --source 3000 --target 3001",
+    "start:dev": "NODE_ENV=development NEXT_PUBLIC_LOCAL_IP_ADDRESS=localhost next dev -p 3001 & npx local-ssl-proxy --source 3000 --target 3001",
     "build": "next build && tsc",
     "lint": "next lint . --ext ts --ext tsx --ext js",
     "lint-and-fix": "next lint . --ext ts --ext tsx --ext js --fix",
@@ -23,26 +23,26 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.6",
-    "@pulumi/aws": "^5.0.0",
-    "@pulumi/awsx": "^1.0.0",
-    "@pulumi/pulumi": "^3.0.0",
+    "@pulumi/aws": "^6.13.1",
+    "@pulumi/aws-apigateway": "^2.1.0",
+    "@pulumi/pulumi": "^3.95.0",
     "@pulumi/synced-folder": "^0.11.1",
     "@react-three/drei": "^9.80.0",
     "@react-three/fiber": "^8.13.6",
     "@react-three/xr": "^5.6.2",
+    "amazon-chime-sdk-js": "^3.18.2",
     "aws-amplify": "5.3.12",
     "aws-sdk": "^2.1445.0",
     "axios": "^1.4.0",
     "babel-plugin-styled-components": "^2.1.4",
     "mime": "^3.0.0",
     "module-alias": "^2.2.3",
-    "next": "latest",
+    "next": "^14.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-use-websocket": "^4.3.1",
-    "styled-components": "^6.0.5",
-    "three": "^0.155.0",
-    "zustand": "^4.3.9"
+    "styled-components": "^6.1.1",
+    "three": "^0.159.0",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/node": "^18.11.5",

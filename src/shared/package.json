@@ -26,6 +26,9 @@
         "lint": "eslint . --ext ts --fix"
     },
     "dependencies": {
+        "@pulumi/aws": "^6.13.1",
+        "@pulumi/pulumi": "^3.95.0",
+        "aws-sdk": "^2.1512.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.0.1",
         "prettier": "^3.1.0"

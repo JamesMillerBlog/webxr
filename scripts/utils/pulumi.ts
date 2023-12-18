@@ -65,6 +65,9 @@ export const pulumiLoginAndStackSelection = (
         `pulumi ${stack} stack does not already exist, will create now`,
       );
       execSync(`pulumi stack init --non-interactive --stack ${stack}`);
+      setTimeout(() => {
+        console.log(`selecting newly created pulumi ${stack} stack`);
+      }, 5000);
     } else {
       console.log(`pulumi ${stack} stack already exists, will use that`);
     }

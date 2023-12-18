@@ -10,10 +10,10 @@ import { DOMAIN, getSharedResources } from '../../shared/infrastructure/common';
   } = await getSharedResources();
   const server = new Server();
 
-  const { endpoints } = server.restLambda();
+  const { resources } = server.restLambda();
 
   const restApi = server.restApiGateway(
-    endpoints,
+    resources,
     edgeCertificationArn,
     cognitoUserPoolArn,
     deploymentVersion,

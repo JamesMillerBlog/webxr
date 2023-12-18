@@ -12,8 +12,13 @@ export interface Endpoint {
   authorizer: boolean;
 }
 
-export class RestLambda {
+export interface Resources {
+  path: string;
   endpoints: Endpoint[];
+}
+
+export class RestLambda {
+  resources: Resources[];
   constructor(parent: Server, name: string) {
     const modules: aws.lambda.LayerVersion = new aws.lambda.LayerVersion(
       `${name}_node_modules`,
@@ -58,6 +63,12 @@ export class RestLambda {
                 'dynamodb:PutItem',
                 'dynamodb:UpdateItem',
                 'dynamodb:DeleteItem',
+                'chime:CreateMeeting',
+                'chime:DeleteMeeting',
+                'chime:CreateAttendee',
+                'chime:DeleteAttendee',
+                'chime:GetMeeting',
+                'chime:ListAttendees',
               ],
               Resource: '*',
             },
@@ -94,7 +105,7 @@ export class RestLambda {
       { parent },
     );
 
-    this.endpoints = [
+    const userEndpoints = [
       {
         method: 'GET',
         authorizer: true,
@@ -179,16 +190,16 @@ export class RestLambda {
             code: new pulumi.asset.AssetArchive({
               'index.js': new pulumi.asset.StringAsset(
                 `exports.handler = async function (event, context) {
-                  return {
-                    statusCode: 200,
-                    headers: {
-                      'Access-Control-Allow-Origin': '*',
-                      'Access-Control-Allow-Credentials': true,
-                      'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
-                      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-                    },
-                  };
-                };`,
+                return {
+                  statusCode: 200,
+                  headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                    'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                  },
+                };
+              };`,
               ),
             }),
             role: lambdaRole.arn,
@@ -230,6 +241,70 @@ export class RestLambda {
           { parent },
         ),
         pathParams: true,
+      },
+    ];
+
+    const chimeEndpoints = [
+      {
+        method: 'POST',
+        authorizer: true,
+        handler: new aws.lambda.Function(
+          `${name}_join_meeting_post_lambda`,
+          {
+            name: `${name}_join_meeting_lambda`,
+            runtime: 'nodejs16.x',
+            handler: 'server/app/chime/lambdas/joinMeeting.handler',
+            code: new pulumi.asset.FileArchive(`${__dirname}/../../dist`),
+            role: lambdaRole.arn,
+            layers,
+            environment: ENV,
+          },
+          { parent },
+        ),
+        pathParams: false,
+      },
+      {
+        method: 'OPTIONS',
+        authorizer: false,
+        handler: new aws.lambda.Function(
+          `${name}_join_meeting_options_lambda`,
+          {
+            name: `${name}_join_meeting_options_lambda`,
+            runtime: 'nodejs16.x',
+            handler: 'index.handler',
+            code: new pulumi.asset.AssetArchive({
+              'index.js': new pulumi.asset.StringAsset(
+                `exports.handler = async function (event, context) {
+                return {
+                  statusCode: 200,
+                  headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                    'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                  },
+                };
+              };`,
+              ),
+            }),
+            role: lambdaRole.arn,
+            layers,
+            environment: ENV,
+          },
+          { parent },
+        ),
+        pathParams: false,
+      },
+    ];
+
+    this.resources = [
+      {
+        path: 'user',
+        endpoints: userEndpoints,
+      },
+      {
+        path: 'joinMeeting',
+        endpoints: chimeEndpoints,
       },
     ];
   }

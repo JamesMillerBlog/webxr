@@ -1,22 +1,32 @@
 import { create } from "zustand";
 import { DataPacket } from "@shared/types";
 
-export interface SocketState {
+export interface SocketStore {
   websocket: null | WebSocket;
   receivedSocketData: null | DataPacket;
-  setWebsocket: (prop: WebSocket) => void;
-  setReceivedSocketData: (prop: DataPacket) => void;
+  shouldUpdateSockets: boolean;
+  isConnected: boolean;
+
+  actions: {
+    setupWebsocket: (prop: WebSocket) => void;
+    handleReceivedMessage: (prop: DataPacket) => void;
+    submitDataToWebSocket: (prop: boolean) => void;
+    connectToSocket: (prop: boolean) => void;
+  };
 }
 
-export const socketStore = create<SocketState>((set) => ({
+export const useSocketStore = create<SocketStore>((set) => ({
   websocket: null,
   receivedSocketData: null,
-  setWebsocket: (prop) =>
-    set(() => ({
-      websocket: prop,
-    })),
-  setReceivedSocketData: (prop) =>
-    set(() => ({
-      receivedSocketData: prop,
-    })),
+  shouldUpdateSockets: false,
+  isConnected: false,
+
+  actions: {
+    setupWebsocket: (websocket) => set(() => ({ websocket })),
+    handleReceivedMessage: (receivedSocketData) =>
+      set(() => ({ receivedSocketData })),
+    submitDataToWebSocket: (shouldUpdateSockets: boolean) =>
+      set({ shouldUpdateSockets }),
+    connectToSocket: (isConnected: boolean) => set({ isConnected }),
+  },
 }));

@@ -3,7 +3,7 @@ import { userService } from '.';
 import { LambdaResponse } from '@shared/types';
 
 export interface GetParams extends APIGatewayProxyEvent {
-  queryStringParameters: { uid?: string };
+  pathParameters: { uid?: string };
 }
 
 export const handler = async (event: GetParams): Promise<LambdaResponse> => {
