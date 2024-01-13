@@ -18,3 +18,11 @@ This repository is a template set up a multiplayer WebXR app.
 - Follow the above steps
 - Deploy Front End ```yarn deploy:client```
 - Deploy Back End ``` yarn deploy:server```
+
+## How to setup with CI
+- In your Github repo where you have cloned this codebase, go to your Settings
+- Within Secrets and variables, select Actions and then create Repository secrets for:
+   - ```AWS_ACCESS_KEY_ID```
+   - ```AWS_REGION```
+   - ```AWS_SECRET_ACCESS_KEY```
+   - ```PULUMI_CONFIG_PASSPHRASE```
