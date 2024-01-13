@@ -14,7 +14,7 @@ This repository is a template set up a multiplayer WebXR app.
    - At this point the CLI will ask you a series of questions to set up your project
    - When it comes to providing the domain name be sure you own this within the AWS account you are setting up 
 - Start localhost development with ```yarn dev```
-- Default email address for localhost is ```test@test.com``` and password is ```Test1234!```
+- Default email address for localhost is ```test@test.com``` and password is ```Test1234!``` (***intended for localhost only, be sure to delete this in cognito if deploying to a live environment***)
 
 ## How to deploy an environment
 - Follow the above steps
