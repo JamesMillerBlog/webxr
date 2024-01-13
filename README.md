@@ -11,6 +11,8 @@ This repository is a template set up a multiplayer WebXR app.
 - Configure your aws credentials locally (e.g ```aws configure```)
 - Clone the repo and then install dependencies with ```yarn install```
 - Set up cloud resources for localhost development with ```yarn setup```
+   - At this point the CLI will ask you a series of questions to set up your project
+   - When it comes to providing the domain name be sure you own this within the AWS account you are setting up 
 - Start localhost development with ```yarn dev```
 - Default email address for localhost is ```test@test.com``` and password is ```Test1234!```
 
@@ -26,3 +28,8 @@ This repository is a template set up a multiplayer WebXR app.
    - ```AWS_REGION```
    - ```AWS_SECRET_ACCESS_KEY```
    - ```PULUMI_CONFIG_PASSPHRASE```
+- Click on the Actions tab, select Deploy on the left side and then on 'Run workflow' to see deployment options
+- Select which branch, stack, domain-name and project-name you want to deploy, for example:
+   - stack: ```dev```
+   - domain-name: ```dev.jamesmiller.blog```
+   - project-name: ```webxr-project```
